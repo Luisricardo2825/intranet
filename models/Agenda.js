@@ -21,7 +21,7 @@ const Agenda = db.sequelize.define("agenda", {
       require:true
     },
   dataFin: {
-        type: db.Sequelize.VARCHAR, 
+        type: db.Sequelize.STRING, 
         require: false
       }
 });
