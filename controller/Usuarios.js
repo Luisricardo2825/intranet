@@ -41,7 +41,7 @@ exports.Create = (req, res) => {
         erros.push({ texto: "Usuário inválido" })
     }
     if (erros.length > 0) {
-        res.render("Usuario/registro", {
+        res.render("Public/registro", {
             erros: erros, memory: {
                 nome:nome,
                 senha:senha,
@@ -55,7 +55,7 @@ exports.Create = (req, res) => {
         Usuario.findOne({ where: { usuario: req.body.usuario } }).then((usuario) => {
             if (usuario) {
                 req.flash("error_msg", "Já existe uma conta associada a este usuario")
-                return res.redirect("/Usuario/registrar")
+                return res.redirect("/registrar")
             }
             else {
                 var Senha

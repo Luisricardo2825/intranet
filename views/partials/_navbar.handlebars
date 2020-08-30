@@ -1,33 +1,46 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Inicio</a>
-    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-
-            <li class="nav-item active">
-                <a class="nav-link" href="/Usuario/Home">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" aria-labelledby="dropdownId">
-                    <a class="dropdown-item" href="/admin/usuarios">Home root</a>
-                </div>
-            </li>
-        </ul>
-        <!--  <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>-->
-        {{#if user}}
-        <a class="nav-link" href="/logout"><button class="btn btn-danger my-2 my-sm-0" type="submit">Log
-                Out</button></a>
-        {{else}}
-        <a class="navbar-brand" href="/Usuario/login"><button class="btn btn-success my-2 my-sm-0" type="submit">Log
-                In</button></a>
-        <a class="nav-link" href="/Usuario/registrar"><button class="btn btn-primary my-2 my-sm-0"
-                type="submit">Registrar</button></a>
+{{#if user}}
+<!--NavBar se estiver logado-->
+<nav class="navbar navbar-expand-lg " style="background-color: #000000">
+    <a class="navbar-brand" href="/"><img
+            src="https://www.carmehil.com.br/wp-content/themes/carmehil/images/logo-grupo.png" class="rounded" alt="..."
+            width="85" height="32"></a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <a class="navbar-brand" style="color: whitesmoke; margin-top: 4px;" href="#">Notícias<span
+                class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link active text-danger" style="color: whitesmoke; margin-top: 4px;"
+            href="/Usuario/Home">
+            <h5>Minhas pendências</h5><span class="sr-only">(current)</span>
+        </a>
+        <!--Se o usuário for admin, mostra o home root-->
+        {{#if user.admin}}
+        <a class="nav-item nav-link active text-warning" href="/admin/usuarios"
+            style="color: whitesmoke; margin-top: 4px;">
+            <h5>Home root</h5>
+        </a>
         {{/if}}
+    </ul>
+
+    <div class="text-right">
+        <a class="navbar-brand active" href="/logout"><button class="btn btn-danger " type="submit">Log
+                Out</button></a>
     </div>
 </nav>
+
+<!--NavBar se não estiver logado-->
+{{else}}
+<nav class="navbar navbar-expand-lg " style="background-color: #000000">
+    <a class="navbar-brand" href="/"><img
+            src="https://www.carmehil.com.br/wp-content/themes/carmehil/images/logo-grupo.png" class="rounded" alt="..."
+            width="85" height="32"></a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <a class="navbar-brand" style="color: whitesmoke;" href="#">Notícias<span class="sr-only">(current)</span></a>
+    </ul>
+
+    <div class="text-right">
+        <a href="/login" class="navbar-brand active"><button class="btn btn-success">Log
+                In</button></a>
+        <a href="/registrar" class="navbar-brand active"><button class="btn btn-primary"
+                type="submit">Registrar</button></a>
+    </div>
+</nav>
+{{/if}}

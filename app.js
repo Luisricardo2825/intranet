@@ -5,10 +5,12 @@ const bodyParser = require("body-parser")
 const app = express();
 const admin = require("./Routes/admin")
 const usr = require("./Routes/usuario")
+const public = require("./Routes/public")
 const path = require("path")
 const session = require("express-session")
 const flash = require("connect-flash");
 const passport = require("passport");
+const Usuario = require("./models/Usuarios");
 require("./Config/auth")(passport)
 
 // Configurações
@@ -52,11 +54,11 @@ app.get("/logout", (req, res) => {
     res.redirect("/")
 })
 
-
+    app.use('/',public)
     app.use('/admin',admin)    
     app.use('/Usuario',usr)    
 // Outros
-    const PORT = 8080
+    const PORT = 8081
     app.listen(PORT, function () {
-        console.log("Servidor iniciado na URL: http://localhost:8080");
+        console.log("Servidor iniciado na URL: http://localhost:8081");
     });
