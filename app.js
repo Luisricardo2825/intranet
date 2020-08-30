@@ -1,3 +1,6 @@
+//Este arquivo é onde começa toda a operação da API(requisições de Rotas,validações,operações e tratamentos)
+ 
+
 //Carregando módulos
 const express = require("express")
 const handlebars = require("express-handlebars");
@@ -14,7 +17,7 @@ const Usuario = require("./models/Usuarios");
 require("./Config/auth")(passport)
 
 // Configurações
- // Session
+ // Session, são as sessoes de usuários abertas no servidor
     app.use(session({
         secret: "session",
         resave: true,
@@ -24,7 +27,7 @@ require("./Config/auth")(passport)
     app.use(passport.initialize())
     app.use(passport.session())
     
- // Middleware
+ // Middlewares(Acontecem entre o usuario e o servidor antes da requisição ou resposta ser efetuada)
     app.use((req, res, next) => {
         res.locals.success_msg = req.flash("success_msg")    
         res.locals.error_msg = req.flash("error_msg")
@@ -39,24 +42,24 @@ require("./Config/auth")(passport)
     app.use(bodyParser.json());
  // Handlebars
     app.engine("handlebars", handlebars({ defaultLayout: "main" }), handlebars());
-app.set("view engine", "handlebars");
+    app.set("view engine", "handlebars");
 
     
 
- // Public
-app.use(express.static(path.join(__dirname, "Public")))
-app.use(express.static('views/images')); 
+ // Public e static files
+    app.use(express.static(path.join(__dirname, "Public")))
+    app.use(express.static('views/images')); 
  // Rotas
-app.get('/', (req, res) => { res.render("Public/Home") })
-app.get("/logout", (req, res) => {
+    app.get('/', (req, res) => { res.render("Public/Home") })
+    app.get("/logout", (req, res) => {
     req.logout()
     req.flash("success_msg", "Deslogado com sucesso")
     res.redirect("/")
 })
 
-    app.use('/',public)
-    app.use('/admin',admin)    
-    app.use('/Usuario',usr)    
+    app.use('/',public)          //Rota pública
+    app.use('/admin',admin)     //Rota de admins
+    app.use('/Usuario',usr)    //Rota dos usuários
 // Outros
     const PORT = 8081
     app.listen(PORT, function () {

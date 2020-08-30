@@ -1,6 +1,7 @@
-const db = require("./db");
+const db = require("./DB");
 const bcrypt = require("bcryptjs")
 
+//Criando a estrutura da tabela
 const Usuario = db.sequelize.define("usuarios", {
   ID: {
     type: db.Sequelize.INTEGER,
@@ -35,7 +36,7 @@ const Usuario = db.sequelize.define("usuarios", {
       type:db.Sequelize.BLOB
   }
 });
-Usuario.sync();
+//Usuario.sync(); //Para que ele crie a tabela,caso não exista, basta descomentar esta linha
 module.exports = Usuario;
 
 

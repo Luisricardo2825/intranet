@@ -2,43 +2,39 @@
 
     <!--Titulo da pagina-->
     <div class="container mt-5">
-        <div class="card text-white bg-success">
+        <div class="card text-dark ">
             <div class="card-body">
                 <h2>Sou a pagina de pendencias do {{usuario.nome}}</h2>
             </div>
+
         </div>
     </div>
 
     <!--Corpo da pagina-->
-
-    <div class="card text-white  mt-5 bg-secondary">
+    <hr>
+    <div class="container mt-1">
+        <a href="/Usuario/Anotacoes/nova">
+            <button class="btn btn-success">Nova anotação</button></a>
+    </div>
+    <!--Pendências-->
+    {{#each agenda}}
+    <div class="card text-white  mt-3 bg-secondary">
         <div class="card-body">
+            <div class="card text-dark">
+                <div class=" card-body">
+                    <h2>{{dataValues.titulo}}</h2>
+                    <br>
+                    <p>{{dataValues.conteudo}}</p>
 
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-
+                    <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">
+                        <button class="btn btn-danger">Deletar</button></a>
+                    <!--Editar-->
+                    <a href="/Usuario/Anotacoes/editar/{{dataValues.ID}}">
+                        <button class="btn btn-primary">Editar</button></a>
+                </div>
+            </div>
         </div>
     </div>
-
+    {{/each}}
 
 </div>
