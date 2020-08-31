@@ -1,13 +1,13 @@
+<div class="card text-white bg-secondary mt-4">
+    <div class="card-body">
+        <h2>Sou a pagina de pendencias do {{usuario.nome}}</h2>
+    </div>
+
+</div>
 <div class="container">
 
     <!--Titulo da pagina-->
     <div class="container mt-5">
-        <div class="card text-dark ">
-            <div class="card-body">
-                <h2>Sou a pagina de pendencias do {{usuario.nome}}</h2>
-            </div>
-
-        </div>
     </div>
 
     <!--Corpo da pagina-->
@@ -18,20 +18,23 @@
     </div>
     <!--Pendências-->
     {{#each agenda}}
-    <div class="card text-white  mt-3 bg-secondary">
-        <div class="card-body">
-            <div class="card text-dark">
-                <div class=" card-body">
-                    <h2>{{dataValues.titulo}}</h2>
-                    <br>
-                    <p>{{dataValues.conteudo}}</p>
+    <div class="card text-white  mt-3 ">
+        <div class="card text-dark">
+            <!--Titulo-->
+            <div class="card-header bg-dark text-white">
+                <h2>{{dataValues.titulo}}</h2>
+            </div>
+            <!--Conteudo-->
+            <div class=" card-body"><br>
+                <pre style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">{{dataValues.conteudo}}
+                    </pre>
 
-                    <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">
-                        <button class="btn btn-danger">Deletar</button></a>
-                    <!--Editar-->
-                    <a href="/Usuario/Anotacoes/editar/{{dataValues.ID}}">
-                        <button class="btn btn-primary">Editar</button></a>
-                </div>
+                <br>
+                <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">
+                    <button class="btn btn-danger">Deletar</button></a>
+                <!--Editar-->
+                <a href="/Usuario/Anotacoes/editar/{{dataValues.ID}}">
+                    <button class="btn btn-primary">Editar</button></a>
             </div>
         </div>
     </div>

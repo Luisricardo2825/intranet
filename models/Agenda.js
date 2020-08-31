@@ -12,7 +12,7 @@ const Agenda = db.sequelize.define("agenda", {
       require:true
   },
   conteudo: {
-      type: db.Sequelize.TEXT, //Após ser criado é necessario que altere o tipo para LONGTEXT diretamente no banco
+      type: db.Sequelize.BLOB, //Após ser criado é necessario que altere o tipo para LONGTEXT diretamente no banco
       require:true
   },
 
@@ -21,7 +21,7 @@ const Agenda = db.sequelize.define("agenda", {
       require:true
     },
   dataFin: {
-        type: db.Sequelize.VARCHAR, 
+        type: db.Sequelize.TEXT, 
         require: false
       }
 });

@@ -82,7 +82,7 @@ exports.Update = (req,res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error ao alterar. id=" + id
+                message: "Error ao alterar. id=" + id + err
             });
         });
 }

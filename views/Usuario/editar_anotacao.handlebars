@@ -1,24 +1,27 @@
 <div class="card text-center mt-5">
     <H3>Adicionar pendencia</H3>
-</div>
-<div class="card-body text-left">
 
-    <form action="/Usuario/Anotacoes/editar/{{data.dataValues.ID}}" method="POST">
-        <label for="nome">Titulo:</label>
-        <input type="text" name="titulo" class="form-control" value="{{data.dataValues.titulo}}">
-        <br>
+    <div class="card-body text-left">
 
-        <label for="conteudo">Conteudo:</label>
-        <input type="text" name="conteudo" class="form-control" value="{{data.dataValues.conteudo}}">
-        <br>
+        <form action="/Usuario/Anotacoes/editar/{{data.dataValues.ID}}" method="POST">
+            <label for="nome">Titulo:</label>
+            <input type="text" name="titulo" class="form-control" value="{{data.dataValues.titulo}}">
+            <br>
 
-        <label for="dataFin">Data Final:</label>
-        <input type="password" name="dataFin" class="form-control" value="{{data.dataValues.dataFin}}">
-        <br>
-        <div class="col align-self-end" style="text-align: right;">
-            <a name="cancelar" id="btnGroupAddon2" class="btn btn-danger" href="" role="button">Cancelar</a>
-            <button type="submit" class="btn btn-success">Enviar</button>
-        </div>
-    </form>
-
+            <label for="conteudo">Conteudo:</label>
+            <div class="input-group">
+                <textarea name="conteudo" class="form-control" aria-label="With textarea"
+                    style="resize: none; height: 200px;">{{data.dataValues.conteudo}}</textarea>
+            </div>
+            <br>
+            <label for="dataFin">Data Final:</label>
+            <input type="password" name="dataFin" class="form-control" value="{{data.dataValues.dataFin}}">
+            <br>
+            <div class="col align-self-end" style="text-align: right;">
+                <a name="cancelar" id="btnGroupAddon2" class="btn btn-danger" href="/Usuario/Home"
+                    role="button">Cancelar</a>
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+        </form>
+    </div>
 </div>
