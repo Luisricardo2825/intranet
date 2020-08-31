@@ -7,6 +7,10 @@
     <title>Teste Intranet</title>
 </head>
 <style>
+    main {
+        min-height: calc(100vh);
+    }
+
     @media screen and (max-width:767px) {
         #navbar {
             height: 400px;
@@ -38,16 +42,19 @@
 </style>
 
 <body>
-    {{>_navbar}}
+    <main>
+        {{>_navbar}}
+        <div style="min-height: 100%;">
+            <div class="container col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 
-    <div class="container col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 
+                {{>_msg}}
 
-        {{>_msg}}
+                {{{body}}}
 
-        {{{body}}}
-
-    </div>
+            </div>
+        </div>
+    </main>
     {{>_footer}}
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
