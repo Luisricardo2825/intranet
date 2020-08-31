@@ -16,11 +16,11 @@ exports.Create = (req, res) => {
     })
         .then(() => {
             req.flash("success_msg", "Anotação adicionada com sucesso!")
-            return res.redirect("/")
+            return res.redirect("/Usuario/Home")
         })
         .catch((erro) => {
             req.flash("error_msg", "Erro ao adicionar a Anotação: " + erro)
-            return res.redirect("/")
+            return res.redirect("/Usuario/Home")
         });
 }
 

@@ -6,7 +6,7 @@ const Agenda = require("../models/Agenda")
 const {Usuario} = require("../Config/permissions")
 
 router.get('/Home', Usuario, (req, res) => {
-    Agenda.findAll({where:{usuario:req.user.ID}}).then(function (agenda) {
+    Agenda.findAll({where:{usuario:req.user.ID}, order: [["createdAt", "DESC"]]}).then(function (agenda) {
         res.render("Usuario/Home",{agenda: agenda,usuario:req.user})
     });
 })
@@ -17,8 +17,7 @@ router.get("/Anotacoes/deletar/:id", Usuario, controllerAge.DestroyOne)
 
 router.get("/Anotacoes/editar/:id",Usuario, controllerAge.FindOne)
 
-router.post('/Anotacoes/nova',Usuario, controllerAge.Create,(req,res)=>{
-})
+router.post('/Anotacoes/nova',Usuario, controllerAge.Create)
 router.post("/Anotacoes/editar/:id",Usuario, controllerAge.Update)
 
 

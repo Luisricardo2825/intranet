@@ -1,4 +1,5 @@
 const Usuario = require("../models/Usuarios");
+const cli = require("cli-color");
 
 module.exports = {
     admin: (req, res, next)=>{
@@ -12,13 +13,20 @@ module.exports = {
         }
     },
     Usuario:(req, res, next)=>{
+       
+    Usuario.findByPk(req.body.ID)
+        .then(()=> { 
+               console.log(cli.green(req.user.ID))
             if (req.isAuthenticated()) {
     
                 return next();
             }
             else {
                 req.flash("error_msg", "É necessario estar logado para acessar esta página")
-                res.redirect("/")
-            }
+                res.redirect("/logout")
+            }})
+            .catch(err => {
+                console.log(err)
+           });
     }
 }

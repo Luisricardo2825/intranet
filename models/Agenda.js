@@ -25,5 +25,5 @@ const Agenda = db.sequelize.define("agenda", {
         require: false
       }
 });
-//Agenda.sync(); //Para que ele crie a tabela,caso não exista, basta descomentar esta linha
+Agenda.sync(); //Para que ele crie a tabela,caso não exista
 module.exports = Agenda;

@@ -23,10 +23,6 @@ exports.Create = (req, res) => {
         erros.push({ texto: "Email inválido" })
     }
     
-    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {
-        erros.push({ texto: "Idade inválido" })
-    }
-    
     if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
         erros.push({ texto: "Senha inválida"})
     }
@@ -46,7 +42,6 @@ exports.Create = (req, res) => {
                 nome:nome,
                 senha:senha,
                 email:email,
-                idade:idade,
                 usuario:usuario
             }})
         
@@ -73,7 +68,6 @@ exports.Create = (req, res) => {
                         Usuario.create({
                             nome: req.body.nome,
                             email: req.body.email,
-                            idade: req.body.idade,
                             senha: Senha,
                             usuario: req.body.usuario
                         })
@@ -103,10 +97,6 @@ exports.Update = (req, res) => {
     }
     if (!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
         erros.push({ texto: "Email inválido" })
-    }
-    
-    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {
-        erros.push({ texto: "Idade inválido" })
     }
     
     if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
@@ -141,7 +131,6 @@ exports.Update = (req, res) => {
                     Usuario.update({
                         nome: req.body.nome,
                         email: req.body.email,
-                        idade: req.body.idade,
                         senha: Senha,
                         usuario: req.body.usuario
                     }
@@ -172,7 +161,7 @@ exports.Update = (req, res) => {
 };
   
 exports.FindOne = (req, res) => {
-    const id = req.params.id;
+    const id = req.params.ID;
   
     Usuario.findByPk(id)
       .then(data => {

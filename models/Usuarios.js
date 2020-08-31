@@ -16,10 +16,6 @@ const Usuario = db.sequelize.define("usuarios", {
       type: db.Sequelize.STRING,
       require:true
   },
-  idade: {
-      type: db.Sequelize.INTEGER,
-      require:true
-  },
   usuario: {
       type: db.Sequelize.STRING,
       require:true
@@ -36,7 +32,7 @@ const Usuario = db.sequelize.define("usuarios", {
       type:db.Sequelize.BLOB
   }
 });
-//Usuario.sync(); //Para que ele crie a tabela,caso não exista, basta descomentar esta linha
+Usuario.sync(); //Para que ele crie a tabela,caso não exista, basta descomentar esta linha
 module.exports = Usuario;
 
 
