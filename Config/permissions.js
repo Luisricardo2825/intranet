@@ -1,23 +1,30 @@
-const Usuario = require("../models/Usuarios");
+const Usuarios = require("../models/Usuarios");
 const cli = require("cli-color");
 
 module.exports = {
-    admin: (req, res, next)=>{
-        if (req.isAuthenticated() && req.user.admin == 1) {
+    admin: (req, res, next) => {
+        const project = Usuarios.findOne({ where: { ID: req.user.ID } })
+            .then((data) => { 
+
+        if (req.isAuthenticated() && req.user.admin == 1 && data != null) {
 
             return next();
         }
         else {
             req.flash("error_msg", "Necessario ter permissões root/Admin")
-            res.redirect("/")
-        }
+            res.redirect("/logout")
+        
+                }
+            }).catch(err => {
+            console.log(err)
+       });
     },
     Usuario:(req, res, next)=>{
        
-    Usuario.findByPk(req.body.ID)
-        .then(()=> { 
-               console.log(cli.green(req.user.ID))
-            if (req.isAuthenticated()) {
+        const project = Usuarios.findOne({ where: { ID: req.user.ID } })
+            .then((data) => { 
+
+            if (req.isAuthenticated() && data != null) {
     
                 return next();
             }

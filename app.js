@@ -14,6 +14,7 @@ const session = require("express-session")
 const flash = require("connect-flash");
 const passport = require("passport");
 const Usuario = require("./models/Usuarios");
+const cli = require("cli-color");
 require("./Config/auth")(passport)
 
 // Configurações
@@ -50,7 +51,9 @@ require("./Config/auth")(passport)
     app.use(express.static(path.join(__dirname, "Public")))
     app.use(express.static('views/images')); 
  // Rotas
-    app.get('/', (req, res) => { res.render("Public/Home") })
+app.get('/', (req, res) => {
+    res.render("Public/Home")
+})
     app.get("/logout", (req, res) => {
     req.logout()
     req.flash("success_msg", "Deslogado com sucesso")
