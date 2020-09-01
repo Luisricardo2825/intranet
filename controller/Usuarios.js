@@ -1,4 +1,5 @@
 const Usuario = require("../models/Usuarios");
+const Agenda = require("../models/Agenda");
 const bcrypt = require("bcryptjs")
 
 exports.Create = (req, res) => {
@@ -23,6 +24,10 @@ exports.Create = (req, res) => {
         erros.push({ texto: "Email inválido" })
     }
     
+    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {
+        erros.push({ texto: "Idade inválido" })
+    }
+    
     if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
         erros.push({ texto: "Senha inválida"})
     }
@@ -42,6 +47,7 @@ exports.Create = (req, res) => {
                 nome:nome,
                 senha:senha,
                 email:email,
+                idade:idade,
                 usuario:usuario
             }})
         
@@ -68,6 +74,7 @@ exports.Create = (req, res) => {
                         Usuario.create({
                             nome: req.body.nome,
                             email: req.body.email,
+                            idade: req.body.idade,
                             senha: Senha,
                             usuario: req.body.usuario
                         })
@@ -97,6 +104,10 @@ exports.Update = (req, res) => {
     }
     if (!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
         erros.push({ texto: "Email inválido" })
+    }
+    
+    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {
+        erros.push({ texto: "Idade inválido" })
     }
     
     if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
@@ -131,6 +142,7 @@ exports.Update = (req, res) => {
                     Usuario.update({
                         nome: req.body.nome,
                         email: req.body.email,
+                        idade: req.body.idade,
                         senha: Senha,
                         usuario: req.body.usuario
                     }
@@ -161,7 +173,7 @@ exports.Update = (req, res) => {
 };
   
 exports.FindOne = (req, res) => {
-    const id = req.params.ID;
+    const id = req.params.id;
   
     Usuario.findByPk(id)
       .then(data => {
@@ -175,8 +187,16 @@ exports.FindOne = (req, res) => {
 exports.DestroyOne = (req, res) => {
     Usuario.destroy({ where: { id: req.params.id } })
         .then(() => {
+            Agenda.destroy({ where: { usuario: req.params.id } })
+        .then(() => {
             req.flash("success_msg", "Usuario deletado com sucesso!")
             return res.redirect("/admin/Usuarios")
+        })
+        .catch((erro) => {
+            req.flash("error_msg", "Erro ao deletar anotações: " + erro)
+            return res.redirect("/admin/Usuarios")
+        });
+            
         })
         .catch((erro) => {
             req.flash("error_msg", "Erro ao deletar usuario: !" + erro)

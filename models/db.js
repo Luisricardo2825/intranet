@@ -52,7 +52,7 @@ se necessario, basta trocar o "host" para o IP da maquina que possui o servidor 
 const Sequelize = require("sequelize");
 const cli = require("cli-color");
 
-const sequelize = new Sequelize("banco", "root", "ricardo", {  
+const sequelize = new Sequelize("banco", "root", "H1h2h3h4", {  
   host: "localhost",
   dialect: "mariadb",
 });

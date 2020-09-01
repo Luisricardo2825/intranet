@@ -3,10 +3,7 @@ const cli = require("cli-color");
 
 module.exports = {
     admin: (req, res, next) => {
-        const project = Usuarios.findOne({ where: { ID: req.user.ID } })
-            .then((data) => { 
-
-        if (req.isAuthenticated() && req.user.admin == 1 && data != null) {
+        if (req.isAuthenticated() && req.user.admin == 1) {
 
             return next();
         }
@@ -15,9 +12,6 @@ module.exports = {
             res.redirect("/logout")
         
                 }
-            }).catch(err => {
-            console.log(err)
-       });
     },
     Usuario:(req, res, next)=>{
        

@@ -35,6 +35,16 @@ exports.DestroyOne = (req, res) => {
             return res.redirect("/Usuario/Home")
         });
 };
+exports.DestroyAllFromUser = (req, res) => {
+    Agenda.destroy({ where: { usuario: req.params.id } })
+        .then(() => {
+            return res.redirect("/")
+        })
+        .catch((erro) => {
+            req.flash("error_msg", "Erro ao deletar anotação: " + erro)
+            return res.redirect("/")
+        });
+};
 
 exports.FindOne = (req, res) => {
     const id = req.params.id;
