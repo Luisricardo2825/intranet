@@ -3,15 +3,14 @@
 {{else}}
 {{/each}}
 <div class="card text-center">
-    <H3>Editar usuario {{data.dataValues.nome}}</H3>
+    <div class="card-header bg-dark text-white text-left">
+        <img src="/IMG/logo-Nav.png" class="rounded" alt="..." width="85" height="32">
+    </div>
     <div class="card-body text-left">
 
         <form action="/admin/usuarios/editar/{{data.dataValues.ID}}" method="POST">
             <label for="nome">Nome:</label>
             <input type="text" name="nome" class="form-control" value="{{data.dataValues.nome}}">
-            <br>
-            <label for="idade">Idade:</label>
-            <input type="number" name="idade" class="form-control" value="{{data.dataValues.idade}}">
             <br>
             <label for="email">Email:</label>
             <input type="text" name="email" class="form-control" value="{{data.dataValues.email}}">

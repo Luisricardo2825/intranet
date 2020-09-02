@@ -6716,6 +6716,16 @@ button.bg-primary:focus {
   background-color: #0062cc !important;
 }
 
+.bg-black {
+    background-color: #000000 !important;
+  }
+  
+  a.bg-black:hover, a.bg-black:focus,
+  button.bg-black:hover,
+  button.bg-black:focus {
+    background-color: #ff0404 !important;
+  }
+
 .bg-secondary {
   background-color: #6c757d !important;
 }

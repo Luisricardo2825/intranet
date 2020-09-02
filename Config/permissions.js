@@ -15,7 +15,7 @@ module.exports = {
     },
     Usuario:(req, res, next)=>{
        
-        const project = Usuarios.findOne({ where: { ID: req.user.ID } })
+        Usuarios.findOne({ where: { ID: req.user.ID } })
             .then((data) => { 
 
             if (req.isAuthenticated() && data != null) {
