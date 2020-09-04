@@ -1,31 +1,35 @@
-{{#each erros}}
-<div class="alert alert-danger">{{texto}}</div>
-{{else}}
-{{/each}}
-<div class="card text-center">
-    <div class="card-header bg-dark text-white text-left">
-        <img src="/IMG/logo-Nav.png" class="rounded" alt="..." width="85" height="32">
-    </div>
-    <div class="card-body text-left">
+<div class="container col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 
-        <form action="/admin/usuarios/editar/{{data.dataValues.ID}}" method="POST">
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" class="form-control" value="{{data.dataValues.nome}}">
-            <br>
-            <label for="email">Email:</label>
-            <input type="text" name="email" class="form-control" value="{{data.dataValues.email}}">
-            <br>
-            <label for="usuario">Usuario:</label>
-            <input type="text" name="usuario" class="form-control" value="{{data.dataValues.usuario}}">
-            <br>
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" class="form-control" value="{{data.dataValues.senha}}">
-            <br>
-            <div class="col align-self-end" style="text-align: right;">
-                <a name="" id="btnGroupAddon2" class="btn btn-danger" href="/admin/usuarios/" role="button">Cancelar</a>
-                <button type="submit" class="btn btn-success">Enviar</button>
-            </div>
-        </form>
+    {{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+    {{else}}
+    {{/each}}
+    <div class="card text-center">
+        <div class="card-header bg-dark text-white text-left">
+            <img src="/IMG/logo-Nav.png" class="rounded" alt="..." width="85" height="32">
+        </div>
+        <div class="card-body text-left">
 
+            <form action="/admin/usuarios/editar/{{data.dataValues.ID}}" method="POST">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" class="form-control" value="{{data.dataValues.nome}}">
+                <br>
+                <label for="email">Email:</label>
+                <input type="text" name="email" class="form-control" value="{{data.dataValues.email}}">
+                <br>
+                <label for="usuario">Usuario:</label>
+                <input type="text" name="usuario" class="form-control" value="{{data.dataValues.usuario}}">
+                <br>
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" class="form-control" value="{{data.dataValues.senha}}">
+                <br>
+                <div class="col align-self-end" style="text-align: right;">
+                    <a name="" id="btnGroupAddon2" class="btn btn-danger" href="/admin/usuarios/"
+                        role="button">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>

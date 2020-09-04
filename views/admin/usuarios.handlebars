@@ -1,54 +1,56 @@
-{{#if usuarios}}
-<div class="container mt-5">
-    <div class="card text-white bg-black">
-        <img class=" card-img-top" src="holder.js/100px180/" alt="">
-        <div class="card-body">
-            <h4 class="card-title">Lista de usuários cadastrados:</h4>
+<div class="container col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+    {{#if usuarios}}
+    <div class="container mt-5">
+        <div class="card text-white bg-black">
+            <img class=" card-img-top" src="holder.js/100px180/" alt="">
+            <div class="card-body">
+                <h4 class="card-title">Lista de usuários cadastrados:</h4>
+            </div>
+        </div>
+        <br>
+
+        <div class="card">
+
+            <table class="table table-striped table-hover table-dark">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Usuario</th>
+                        <th>Deletar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each usuarios}}
+                    <tr>
+                        <td scope="row">{{dataValues.nome}}</td>
+                        <td scope="row">{{dataValues.email}}</td>
+                        <td scope="row">{{dataValues.usuario}}</td>
+                        <td scope="row">
+                            <!--Deletar-->
+                            <a href="/admin/usuarios/deletar/{{dataValues.ID}}">
+                                <button class="btn btn-danger">Deletar</button></a>
+                            <!--Editar-->
+                            <a href="/admin/usuarios/editar/{{dataValues.ID}}">
+                                <button class="btn btn-primary">Editar</button></a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    {{else}}
+    <div class="container mt-5">
+        <div class="card bg-warning text-dark">
+            <img class="card-img-top" src="holder.js/100px180/" alt="">
+            <div class="card-body">
+                <h4 class="card-title">Lista de usuários cadastrados:</h4>
+                <p class="card-text">Não há usuários a listar</p>
+            </div>
         </div>
     </div>
     <br>
-
-    <div class="card">
-
-        <table class="table table-striped table-hover table-dark">
-            <thead class="thead-light">
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Usuario</th>
-                    <th>Deletar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each usuarios}}
-                <tr>
-                    <td scope="row">{{dataValues.nome}}</td>
-                    <td scope="row">{{dataValues.email}}</td>
-                    <td scope="row">{{dataValues.usuario}}</td>
-                    <td scope="row">
-                        <!--Deletar-->
-                        <a href="/admin/usuarios/deletar/{{dataValues.ID}}">
-                            <button class="btn btn-danger">Deletar</button></a>
-                        <!--Editar-->
-                        <a href="/admin/usuarios/editar/{{dataValues.ID}}">
-                            <button class="btn btn-primary">Editar</button></a>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-
-        </table>
-    </div>
+    {{/if}}
 </div>
-{{else}}
-<div class="container mt-5">
-    <div class="card bg-warning text-dark">
-        <img class="card-img-top" src="holder.js/100px180/" alt="">
-        <div class="card-body">
-            <h4 class="card-title">Lista de usuários cadastrados:</h4>
-            <p class="card-text">Não há usuários a listar</p>
-        </div>
-    </div>
-</div>
-<br>
-{{/if}}

@@ -9,7 +9,6 @@ exports.Create = (req, res) => {
     const senha = req.body.senha
     const usuario = req.body.usuario
     const email = req.body.email
-    const idade = req.body.idade
     const nome = req.body.nome
     /*nome: nome,
     idade: idade,
@@ -22,10 +21,6 @@ exports.Create = (req, res) => {
     }
     if (!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
         erros.push({ texto: "Email inválido" })
-    }
-    
-    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {
-        erros.push({ texto: "Idade inválido" })
     }
     
     if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
@@ -47,7 +42,6 @@ exports.Create = (req, res) => {
                 nome:nome,
                 senha:senha,
                 email:email,
-                idade:idade,
                 usuario:usuario
             }})
         
@@ -74,7 +68,6 @@ exports.Create = (req, res) => {
                         Usuario.create({
                             nome: req.body.nome,
                             email: req.body.email,
-                            idade: req.body.idade,
                             senha: Senha,
                             usuario: req.body.usuario
                         })
