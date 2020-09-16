@@ -1,21 +1,29 @@
 <div class="card text-center mt-5">
-    <H3>Adicionar pendencia</H3>
+    <H3>Editar Noticias</H3>
 
     <div class="card-body text-left">
 
-        <form action="/Usuario/Anotacoes/editar/{{data.dataValues.ID}}" method="POST">
-            <label for="nome">Titulo:</label>
-            <input type="text" name="titulo" class="form-control" value="{{data.dataValues.titulo}}">
-            <br>
+        <form action="/Usuario/Noticias/editar/{{data.dataValues.ID}}" method="POST">
 
+            <!--Título-->
+            <label for="nome">Titulo:</label>
+            <input type="text" name="titulo" class="form-control">
+            <br>
+            <!--Conteudo-->
             <label for="conteudo">Conteudo:</label>
             <div class="input-group">
                 <textarea name="conteudo" class="form-control" aria-label="With textarea"
-                    style="resize: none; height: 200px;">{{data.dataValues.conteudo}}</textarea>
+                    style="resize: none; height: 200px;"></textarea>
             </div>
             <br>
-            <label for="dataFin">Data Final:</label>
-            <input type="password" name="dataFin" class="form-control" value="{{data.dataValues.dataFin}}">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Destaque da notícia</label>
+                <select class="form-control" name="Dest.Noticia" id="exampleFormControlSelect1">
+                    <option value="1">1 - Carousel</option>
+                    <option value="2">2 - Destaque Home</option>
+                    <option value="3">3 - Noticias laterais</option>
+                </select>
+            </div>
             <br>
             <div class="col align-self-end" style="text-align: right;">
                 <a name="cancelar" id="btnGroupAddon2" class="btn btn-danger" href="/Usuario/Home"
@@ -24,4 +32,5 @@
             </div>
         </form>
     </div>
+</div>
 </div>

@@ -19,6 +19,10 @@ const Noticias = db.sequelize.define("noticias", {
   usuario: {
       type: db.Sequelize.INTEGER,
       require:true
+    },
+    Destaque:{
+        type: db.Sequelize.INTEGER,
+        require: true
     }
 });
 Noticias.sync(); //Para que ele crie a tabela,caso não exista

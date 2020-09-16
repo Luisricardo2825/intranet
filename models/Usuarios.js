@@ -28,6 +28,10 @@ const Usuario = db.sequelize.define("usuarios", {
         type: db.Sequelize.INTEGER,
         default:0
     },
+  marketing: {
+        type: db.Sequelize.INTEGER,
+        default:0
+    },
     img: {
       type:db.Sequelize.BLOB
   }
