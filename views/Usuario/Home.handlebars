@@ -1,8 +1,10 @@
-<div class="card text-white bg-secondary mt-4">
-    <div class="card-body">
-        <h2>Sou a pagina de pendencias do {{usuario.nome}}</h2>
-    </div>
+<div class="container">
+    <div class="card text-white bg-black mt-4">
+        <div class="card-body">
+            <h2>Sou a pagina de pendencias do {{usuario.nome}}</h2>
+        </div>
 
+    </div>
 </div>
 <div class="container">
 
@@ -26,8 +28,9 @@
             </div>
             <!--Conteudo-->
             <div class=" card-body"><br>
-                <pre style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">{{dataValues.conteudo}}
-                    </pre>
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">
+                    {{{dataValues.conteudo}}}
+                </div>
 
                 <br>
                 <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">

@@ -5,6 +5,8 @@ const controllerNot = require("../controller/Noticias")
 const Agenda = require("../models/Agenda")
 const Noticias = require("../models/Noticias")
 const {Usuario} = require("../Config/permissions")
+const {Remarkable} = require("remarkable")
+const md = new Remarkable();
 
 //Get's
     router.get('/Home', Usuario, (req, res) => {
@@ -17,20 +19,26 @@ const {Usuario} = require("../Config/permissions")
     })
     router.get("/Anotacoes/deletar/:id", Usuario, controllerAge.DestroyOne)
     router.get("/Anotacoes/editar/:id",Usuario, controllerAge.FindOne)
-    router.get("/Noticia/nova",Usuario,(req,res)=>{res.render("Marketing/Add_noticia")})
-    router.get("/Noticia/editar",Usuario,(req,res)=>{
+    router.get("/Marketing",Usuario,(req,res)=>{
+        res.render("Marketing/Home")
+    })
+    router.get("/Marketing/Noticia/nova",Usuario,(req,res)=>{
+        res.render("Marketing/Add_noticia")
+    })
+    router.get("/Marketing/Noticia/editar",Usuario,(req,res)=>{
         Agenda.findAll({where:{usuario:req.user.ID}, order: [["createdAt", "DESC"]]}).then(function (agenda) {
         })
     })
-    router.get("/Noticia/:titulo",(req,res)=>{
+    router.get("/Marketing/Noticia/:titulo",(req,res)=>{
+        
         res.render("Marketing/Noticia")
     })
 
 //Post's
     router.post('/Anotacoes/nova',Usuario, controllerAge.Create)
     router.post("/Anotacoes/editar/:id",Usuario, controllerAge.Update)
-    router.post("/Noticia/nova",Usuario,controllerNot.Create)
-    router.post("/Noticia/editar",Usuario,controllerNot.Update)
+    router.post("/Marketing/Noticia/nova",Usuario,controllerNot.Create)
+    router.post("/Marketing/Noticia/editar",Usuario,controllerNot.Update)
 
 
 module.exports = router

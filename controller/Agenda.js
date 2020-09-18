@@ -1,13 +1,16 @@
 const Agenda = require("../models/Agenda");
 
+
 exports.Create = (req, res) => {
     var dateFin
+        
     if (!req.body.dataFin || typeof req.body.dataFin == undefined || req.body.dataFin == null) {
         dateFin = null
     }
     else {
         dateFin = req.body.dataFin
     }
+
     Agenda.create({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,

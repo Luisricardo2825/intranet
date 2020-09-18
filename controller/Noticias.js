@@ -4,7 +4,7 @@ exports.Create = (req, res) => {
     Noticias.create({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
-        Destaque: req.body.Dest.Noticia,
+        Destaque: req.body.Destaque,
         usuario: req.user.ID     
     })
         .then(() => {
