@@ -1,11 +1,15 @@
 const Noticias = require("../models/Noticias");
+var Data = require("../Config/Date")
+
 
 exports.Create = (req, res) => {
     Noticias.create({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         Destaque: req.body.Destaque,
-        usuario: req.user.ID     
+        usuario: req.user.ID,
+        dataCriacao:Data,
+        dataAtualizacao: Data
     })
         .then(() => {
             req.flash("success_msg", "Noticia adicionada com sucesso!")
@@ -58,6 +62,7 @@ exports.Update = (req,res) => {
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         Destaque: req.body.Dest.Noticia,
+        dataAtualizacao: Data
     }
         , {
             where: { id: id }

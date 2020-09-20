@@ -26,6 +26,11 @@
                         <td scope="row">{{dataValues.nome}}</td>
                         <td scope="row">{{dataValues.email}}</td>
                         <td scope="row">{{dataValues.usuario}}</td>
+                        {{#if dataValues.admin}}
+                        <td scope="row" style="background-color: rgb(150, 29, 29);">
+                            <div class="text-center text-center"> Admin</div>
+                        </td>
+                        {{else}}
                         <td scope="row">
                             <!--Deletar-->
                             <a href="/admin/usuarios/deletar/{{dataValues.ID}}">
@@ -34,6 +39,7 @@
                             <a href="/admin/usuarios/editar/{{dataValues.ID}}">
                                 <button class="btn btn-primary">Editar</button></a>
                         </td>
+                        {{/if}}
                     </tr>
                     {{/each}}
                 </tbody>

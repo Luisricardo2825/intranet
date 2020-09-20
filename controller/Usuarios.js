@@ -1,6 +1,7 @@
 const Usuario = require("../models/Usuarios");
 const Agenda = require("../models/Agenda");
 const bcrypt = require("bcryptjs")
+const Data = require("../Config/Date")
 
 exports.Create = (req, res) => {
     
@@ -64,16 +65,18 @@ exports.Create = (req, res) => {
                         }
                         //Dando o valor da senha(var) já encriptado
                         Senha = hash
-                        console.log(Senha)
                         Usuario.create({
                             nome: req.body.nome,
                             email: req.body.email,
                             senha: Senha,
-                            usuario: req.body.usuario
+                            usuario: req.body.usuario,
+                            dataCriacao:Data,
+                            dataAtualizacao: Data
                         })
                             .then(() => {
                                 req.flash("success_msg", "Usuario cadastrado com sucesso!")
                                 return res.redirect("/")
+                              
                             })
                             .catch((erro) => {
                                 req.flash("error_msg", "Erro a cadastrar usuario: " + erro)
@@ -126,13 +129,13 @@ exports.Update = (req, res) => {
                     }
                     //Dando o valor da senha(var) já encriptado
                     Senha = hash
-                    console.log(Senha)
             
                     Usuario.update({
                         nome: req.body.nome,
                         email: req.body.email,
                         senha: Senha,
-                        usuario: req.body.usuario
+                        usuario: req.body.usuario,
+                        dataAtualizacao: Data
                     }
                         , {
                             where: { id: id }

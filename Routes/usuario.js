@@ -4,14 +4,22 @@ const controllerAge = require("../controller/Agenda")
 const controllerNot = require("../controller/Noticias")
 const Agenda = require("../models/Agenda")
 const Noticias = require("../models/Noticias")
-const {Usuario} = require("../Config/permissions")
-const {Remarkable} = require("remarkable")
-const md = new Remarkable();
+const { Usuario } = require("../Config/permissions")
+var Data = require("../Config/Date")
+
 
 //Get's
     router.get('/Home', Usuario, (req, res) => {
-        Agenda.findAll({where:{usuario:req.user.ID}, order: [["createdAt", "DESC"]]}).then(function (agenda) {
-            res.render("Usuario/Home",{agenda: agenda,usuario:req.user})
+        Agenda.findAll({ where: { usuario: req.user.ID }, order: [["dataFin", "ASC"]] }).then(function (agenda) {
+           Agenda.findAndCountAll({
+                where: {
+                   usuario:req.user.ID
+                }
+           }).then((count) => {
+                console.log(count.count)
+                res.render("Usuario/Home", { agenda: agenda, usuario: req.user, count:count})
+              })
+           
     });
     })
     router.get('/Anotacoes/nova', Usuario, (req, res) => {
@@ -26,7 +34,7 @@ const md = new Remarkable();
         res.render("Marketing/Add_noticia")
     })
     router.get("/Marketing/Noticia/editar",Usuario,(req,res)=>{
-        Agenda.findAll({where:{usuario:req.user.ID}, order: [["createdAt", "DESC"]]}).then(function (agenda) {
+        Agenda.findAll({where:{usuario:req.user.ID}, order: [["ID", "DESC"]]}).then(function (agenda) {
         })
     })
     router.get("/Marketing/Noticia/:titulo",(req,res)=>{

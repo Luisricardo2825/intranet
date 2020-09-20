@@ -25,7 +25,7 @@ module.exports = {
        } catch (error) {
         req.flash("error_msg", "É necessario estar logado para acessar esta página")
         res.redirect("/logout")
-       }
+       }    
 
         Usuarios.findOne({ where: { ID: req.user.ID } })
             .then((data) => { 

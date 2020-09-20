@@ -12,7 +12,7 @@ router.get('/', admin,(req, res) => {
 })
 
 router.get('/usuarios',admin,Usuario, (req, res) => {
-    Usuarios.findAll({ order: [["createdAt", "ASC"]] }).then(function (usuarios) {
+    Usuarios.findAll({ order: [["dataCriacao", "ASC"]] }).then(function (usuarios) {
         res.render("admin/usuarios", { usuarios: usuarios });
       });
 })

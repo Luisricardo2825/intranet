@@ -1,21 +1,22 @@
 const Agenda = require("../models/Agenda");
-
+var Data = require("../Config/Date")
 
 exports.Create = (req, res) => {
-    var dateFin
-        
+    var dateFin ={}
+    
     if (!req.body.dataFin || typeof req.body.dataFin == undefined || req.body.dataFin == null) {
         dateFin = null
     }
     else {
-        dateFin = req.body.dataFin
+        dateFin = req.body.dataFin.split("-")
     }
-
     Agenda.create({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         usuario: req.user.ID,
-        dataFin:dateFin
+        dataFin: dateFin[2]+"/"+dateFin[1]+"/"+dateFin[0],
+        dataCriacao:Data,
+        dataAtualizacao: Data
     })
         .then(() => {
             req.flash("success_msg", "Anotação adicionada com sucesso!")
@@ -63,19 +64,20 @@ exports.FindOne = (req, res) => {
 
 exports.Update = (req,res) => {
     const id = req.params.id;
-    var dateFin
+    var dateFin ={}
 
     if (!req.body.dataFin || typeof req.body.dataFin == undefined || req.body.dataFin == null) {
         dateFin = null
     }
     else {
-        dateFin = req.body.dataFin
+        dateFin = req.body.dataFin.split("-")
     }
 
     Agenda.update({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
-        dataFin:dateFin
+        dataFin: dateFin[2]+"/"+dateFin[1]+"/"+dateFin[0],
+        dataAtualizacao: Data
     }
         , {
             where: { id: id }
@@ -99,3 +101,4 @@ exports.Update = (req,res) => {
             });
         });
 }
+

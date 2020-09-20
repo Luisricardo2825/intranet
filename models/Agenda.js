@@ -23,7 +23,15 @@ const Agenda = db.sequelize.define("agenda", {
   dataFin: {
         type: db.Sequelize.TEXT, 
         require: false
-      }
-});
+    },
+    dataCriacao: {
+        type: db.Sequelize.TEXT, 
+        require: false
+    },
+    dataAtualizacao: {
+        type: db.Sequelize.TEXT, 
+        require: false
+  }
+},{timestamps: false,});
 Agenda.sync(); //Para que ele crie a tabela,caso não exista
 module.exports = Agenda;

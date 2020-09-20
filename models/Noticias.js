@@ -23,7 +23,15 @@ const Noticias = db.sequelize.define("noticias", {
     Destaque:{
         type: db.Sequelize.INTEGER,
         require: true
-    }
-});
+    },
+    dataCriacao: {
+        type: db.Sequelize.TEXT, 
+        require: false
+    },
+    dataAtualizacao: {
+        type: db.Sequelize.TEXT, 
+        require: false
+  }
+},{timestamps: false,});
 Noticias.sync(); //Para que ele crie a tabela,caso não exista
 module.exports = Noticias;

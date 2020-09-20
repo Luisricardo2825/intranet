@@ -17,6 +17,7 @@
     <div class="container mt-1">
         <a href="/Usuario/Anotacoes/nova">
             <button class="btn btn-success">Nova anotação</button></a>
+        <span class="badge badge-pill bg-success align-text-bottom text-white">{{count.count}}</span></h5>
     </div>
     <!--Pendências-->
     {{#each agenda}}
@@ -24,14 +25,30 @@
         <div class="card text-dark">
             <!--Titulo-->
             <div class="card-header bg-dark text-white">
-                <h2>{{dataValues.titulo}}</h2>
+                <div class="row">
+                    <h2 class="col-11 text-left">{{dataValues.titulo}}</h2>
+                    <div class="text-right">
+                        <a class="btn btn-primary text-right" data-toggle="collapse" href="#anotacao_{{dataValues.ID}}"
+                            role="button" aria-expanded="false" aria-controls="anotacao_{{dataValues.ID}}">
+                            Expandir
+                        </a>
+                    </div>
+                </div>
             </div>
             <!--Conteudo-->
-            <div class=" card-body"><br>
-                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">
-                    {{{dataValues.conteudo}}}
+            <div class=" card-body collapse" id="anotacao_{{dataValues.ID}}"><br>
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;"
+                    id="content{{dataValues.ID}}">
                 </div>
 
+                <input type="hidden" id="dados{{dataValues.ID}}" value="{{dataValues.conteudo}}">
+                <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+                <script>
+                    var text = document.getElementById("dados{{dataValues.ID}}").value
+                    document.getElementById('content{{dataValues.ID}}').innerHTML =
+                        marked(text);
+                    text = document.getElementById("dados").value = ""
+                </script>
                 <br>
                 <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">
                     <button class="btn btn-danger">Deletar</button></a>
@@ -41,7 +58,7 @@
 
             </div>
             <div class="card-footer text-muted">
-                {{dataValues.createdAt}}
+                Criado em: {{dataValues.dataCriacao}}
             </div>
         </div>
     </div>

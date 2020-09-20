@@ -34,8 +34,16 @@ const Usuario = db.sequelize.define("usuarios", {
     },
     img: {
       type:db.Sequelize.BLOB
+    },
+    dataCriacao: {
+        type: db.Sequelize.TEXT, 
+        require: false
+    },
+    dataAtualizacao: {
+        type: db.Sequelize.TEXT, 
+        require: false
   }
-});
+},{timestamps: false,});
 Usuario.sync(); //Para que ele crie a tabela,caso não exista, basta descomentar esta linha
 module.exports = Usuario;
 
