@@ -45,7 +45,8 @@ app.use((req, res, next) => {
                 usuario: req.user.ID,
                 dataFin: {
                     [Op.lte]: Data
-                }
+                },
+                FinalizadoPor:null
             }
         }).then((count) => {
             // Cria o middleware "notificações" logo após o findAndCountAll
@@ -70,7 +71,11 @@ app.use((req, res, next) => {
                     console.log(element.ID)
                     Agenda.update({
                         FinalizadoPor:"Fim de prazo"
-                       }, {where: { ID: element.ID ,dataFin:Data}})
+                    }, { where: { ID: element.ID, dataFin: Data } })
+                    
+                    Agenda.update({
+                        FinalizadoPor:null
+                       }, {where: { ID: element.ID,dataFin:{[Op.ne]:Data} }})
                 }
                 
             }
@@ -79,17 +84,18 @@ app.use((req, res, next) => {
                     const element = dados[index];               
                     Agenda.update({
                      FinalizadoPor:"Fim de prazo"
-                    }, {where: { ID: element.ID,dataFin:Data }})
+                    }, { where: { ID: element.ID, dataFin: { [Op.lte]: Data }}})
+                    
+                    Agenda.update({
+                        FinalizadoPor:null
+                       }, {where: { ID: element.ID,dataFin:{[Op.gte]:Data} }})
                 }
                 
             }
             
-        })
-    
-    
+        })   
 }
-    
-            next()
+next()
             
     })
 
