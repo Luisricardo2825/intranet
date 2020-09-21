@@ -7,7 +7,14 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <a class="nav-item nav-link active text-white" style="color: whitesmoke; margin-top: 4px;" href="/Usuario/Home">
             <h5>Minhas pendências
-                <span class="badge badge-pill bg-success align-text-bottom text-white">27</span></h5>
+
+                {{#if notificacoes}}
+                <span class="badge badge-pill bg-danger text-white" style="height: 24px;">
+                    {{notificacoes}}
+                    <img src="/IMG/alerta.png" class="rounded bg-danger mb-1" width="15px" height="16px">
+                </span>
+                {{/if}}
+            </h5>
         </a>
         <!--Se o usuário for admin, mostra o home root-->
         {{#if user.admin}}

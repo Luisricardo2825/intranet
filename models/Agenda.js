@@ -26,12 +26,16 @@ const Agenda = db.sequelize.define("agenda", {
     },
     dataCriacao: {
         type: db.Sequelize.TEXT, 
-        require: false
+        require: true
     },
     dataAtualizacao: {
         type: db.Sequelize.TEXT, 
+        require: true
+    },
+    FinalizadoPor: {
+        type: db.Sequelize.TEXT, 
         require: false
-  }
+    }
 },{timestamps: false,});
 Agenda.sync(); //Para que ele crie a tabela,caso não exista
 module.exports = Agenda;

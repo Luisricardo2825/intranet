@@ -2,19 +2,19 @@ const Agenda = require("../models/Agenda");
 var Data = require("../Config/Date")
 
 exports.Create = (req, res) => {
-    var dateFin ={}
+    var dateFin 
     
     if (!req.body.dataFin || typeof req.body.dataFin == undefined || req.body.dataFin == null) {
-        dateFin = null
+        dateFin = "Indeterminado"
     }
     else {
-        dateFin = req.body.dataFin.split("-")
+        dateFin = req.body.dataFin
     }
     Agenda.create({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         usuario: req.user.ID,
-        dataFin: dateFin[2]+"/"+dateFin[1]+"/"+dateFin[0],
+        dataFin: dateFin,
         dataCriacao:Data,
         dataAtualizacao: Data
     })
@@ -64,19 +64,19 @@ exports.FindOne = (req, res) => {
 
 exports.Update = (req,res) => {
     const id = req.params.id;
-    var dateFin ={}
+    var dateFin
 
     if (!req.body.dataFin || typeof req.body.dataFin == undefined || req.body.dataFin == null) {
-        dateFin = null
+        dateFin = "Indeterminado"
     }
     else {
-        dateFin = req.body.dataFin.split("-")
+        dateFin = req.body.dataFin
     }
 
     Agenda.update({
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
-        dataFin: dateFin[2]+"/"+dateFin[1]+"/"+dateFin[0],
+        dataFin: dateFin,
         dataAtualizacao: Data
     }
         , {

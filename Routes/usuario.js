@@ -11,15 +11,7 @@ var Data = require("../Config/Date")
 //Get's
     router.get('/Home', Usuario, (req, res) => {
         Agenda.findAll({ where: { usuario: req.user.ID }, order: [["dataFin", "ASC"]] }).then(function (agenda) {
-           Agenda.findAndCountAll({
-                where: {
-                   usuario:req.user.ID
-                }
-           }).then((count) => {
-                console.log(count.count)
-                res.render("Usuario/Home", { agenda: agenda, usuario: req.user, count:count})
-              })
-           
+                res.render("Usuario/Home", { agenda: agenda, usuario: req.user})
     });
     })
     router.get('/Anotacoes/nova', Usuario, (req, res) => {

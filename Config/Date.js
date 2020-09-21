@@ -14,7 +14,7 @@ dateFormat.i18n = {
         ''
     ]
     };
-    var Data = dateFormat(now,"dd/mm/yyyy").toString();
+    var Data = dateFormat(now,"yyyy-mm-dd").toString();
     console.log(Data)
 
 
