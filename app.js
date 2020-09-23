@@ -13,12 +13,13 @@ const path = require("path")
 const session = require("express-session")
 const flash = require("connect-flash");
 const passport = require("passport");
-const Usuario = require("./models/Usuarios");
-const cli = require("cli-color");
 const Agenda = require("./models/Agenda")
 const db = require("./models/db");
+const Noticias = require("./models/Noticias")
 const Data = require("./Config/Date")
+const hbs = require("./Config/Handlebars")
 const Op = db.Sequelize.Op
+
 require("./Config/auth")(passport)
 
 // Configurações
@@ -104,17 +105,21 @@ next()
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
  // Handlebars
-    app.engine("handlebars", handlebars({ defaultLayout: "main" }), handlebars());
+    app.engine("handlebars", hbs.engine);
     app.set("view engine", "handlebars");
+//Helper's Handlebars
 
-    
 
  // Public e static files
     app.use(express.static(path.join(__dirname, "Public")))
     app.use(express.static('views/images')); 
+
  // Rotas
 app.get('/', (req, res) => {
-    res.render("Public/Home")
+Noticias.findAll().then(function (noticias) {
+    res.render("Public/Home",{noticias:noticias})
+})
+
 })
     app.get("/logout", (req, res) => {
     req.logout()

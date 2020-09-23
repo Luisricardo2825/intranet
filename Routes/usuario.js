@@ -11,6 +11,7 @@ var Data = require("../Config/Date")
 //Get's
     router.get('/Home', Usuario, (req, res) => {
         Agenda.findAll({ where: { usuario: req.user.ID }, order: [["dataFin", "ASC"]] }).then(function (agenda) {
+            console.log(agenda)
                 res.render("Usuario/Home", { agenda: agenda, usuario: req.user})
     });
     })
@@ -20,7 +21,12 @@ var Data = require("../Config/Date")
     router.get("/Anotacoes/deletar/:id", Usuario, controllerAge.DestroyOne)
     router.get("/Anotacoes/editar/:id",Usuario, controllerAge.FindOne)
     router.get("/Marketing",Usuario,(req,res)=>{
-        res.render("Marketing/Home")
+        Noticias.findAll({where:{ID:req.user.ID}, order: [["ID", "DESC"]]}).then(function (noticias) {
+            console.log(noticias)
+            res.render("Marketing/Home",{noticias:noticias})
+        })
+
+
     })
     router.get("/Marketing/Noticia/nova",Usuario,(req,res)=>{
         res.render("Marketing/Add_noticia")
