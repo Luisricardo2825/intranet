@@ -1,6 +1,7 @@
-module.exports = runtime=>{
+module.exports = (runtime) => {
     if (runtime == 1) {
-        return true
+        return true;
+    } else {
+        return false;
     }
-    else{return false}
-}
+};

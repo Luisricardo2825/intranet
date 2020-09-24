@@ -2,35 +2,35 @@
 //@$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 /*
-                                       ,@.                                      
-                                      /@@@,                                     
-                                   / @@@@@@@ @                                  
-                                   .@@@@@@@@@                                   
-                                ( (@@@@@@@@@@@@ *                               
-                                 @@@@@@@@@@@@@@@                                
-                             , @@@@@@@@. *@@@@@@@@ .                            
-                              @@@@@@@@     @@@@@@@@                             
-                            @@@@@@@@*       (@@@@@@@@                           
-                           @@@@@@@@           @@@@@@@@ ,                        
-                         @@@@@@@@@   @@@@@@@   @@@@@@@@*                        
-                      * @@@@@@@@     &@@@@@@     @@@@@@@@ (                     
-                      *@@@@@@@@      &&@@@@@      @@@@@@@@.                     
-                   @ @@@@@@@@        &&&&@@@        @@@@@@@@ (                  
-                   .@@@@@@@@         @&&&&@*         @@@@@@@@                   
-                / @@@@@@@@            &&&&&           .@@@@@@@@ .               
-                 @@@@@@@@             @&&&&             @@@@@@@@                
-               @@@@@@@@,              @@&&&              (@@@@@@@@              
-              @@@@@@@@                @@@@@                @@@@@@@@ .           
-            @@@@@@@@@                 ,@@@                  @@@@@@@@(           
-         . @@@@@@@@                                           @@@@@@@@ *        
-         (@@@@@@@@                    @@@@@                    @@@@@@@@,        
-      @ @@@@@@@@                     @@@@@@@                     @@@@@@@@ @     
-      .@@@@@@@@                      &@@@@@@                      @@@@@@@@      
-   ( @@@@@@@@                                                      .@@@@@@@@ *  
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   
-  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(@@(@(@@@@@@@@@@@@@@ 
-  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
-     
+                                       ,@.
+                                      /@@@,
+                                   / @@@@@@@ @
+                                   .@@@@@@@@@
+                                ( (@@@@@@@@@@@@ *
+                                 @@@@@@@@@@@@@@@
+                             , @@@@@@@@. *@@@@@@@@ .
+                              @@@@@@@@     @@@@@@@@
+                            @@@@@@@@*       (@@@@@@@@
+                           @@@@@@@@           @@@@@@@@ ,
+                         @@@@@@@@@   @@@@@@@   @@@@@@@@*
+                      * @@@@@@@@     &@@@@@@     @@@@@@@@ (
+                      *@@@@@@@@      &&@@@@@      @@@@@@@@.
+                   @ @@@@@@@@        &&&&@@@        @@@@@@@@ (
+                   .@@@@@@@@         @&&&&@*         @@@@@@@@
+                / @@@@@@@@            &&&&&           .@@@@@@@@ .
+                 @@@@@@@@             @&&&&             @@@@@@@@
+               @@@@@@@@,              @@&&&              (@@@@@@@@
+              @@@@@@@@                @@@@@                @@@@@@@@ .
+            @@@@@@@@@                 ,@@@                  @@@@@@@@(
+         . @@@@@@@@                                           @@@@@@@@ *
+         (@@@@@@@@                    @@@@@                    @@@@@@@@,
+      @ @@@@@@@@                     @@@@@@@                     @@@@@@@@ @
+      .@@@@@@@@                      &@@@@@@                      @@@@@@@@
+   ( @@@@@@@@                                                      .@@@@@@@@ *
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(@@(@(@@@@@@@@@@@@@@
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
         ################################################################
         #              CUIDADO AO EDITAR ESTE ARQUIVO                  #
         ################################################################
@@ -46,28 +46,41 @@ se necessario, basta trocar o "host" para o IP da maquina que possui o servidor 
 
 
 "Com grandes poderes vem grandes responsábilidades"-Tio Ben
-*/ 
-
+*/
 
 const Sequelize = require("sequelize");
 const cli = require("cli-color");
-const SenCarmehil = "H1h2h3h4"
-const SenRicardo = "ricardo"
+const SenCarmehil = "H1h2h3h4";
+const SenRicardo = "ricardo";
+const process = "Etc/GMT0";
 
-const sequelize = new Sequelize("banco", "root", SenCarmehil, {  
-  host: "localhost",
-  dialect: "mariadb",
+const sequelize = new Sequelize("banco", "root", SenRicardo, {
+    host: "localhost",
+    dialect: "mariadb",
+    dialectOptions: {
+        timezone: process,
+    },
+    pool: {
+        min: 0,
+        max: 2,
+        idle: 10000,
+    },
+    define: {
+        timestamps: false,
+    },
+    benchmark: false,
+    logging: false,
 });
 
 module.exports = {
-  Sequelize: Sequelize,
-  sequelize: sequelize,
+    Sequelize: Sequelize,
+    sequelize: sequelize,
 };
 sequelize
-  .authenticate()
-  .then(function () {
-    console.log(cli.green("Conectado com sucesso!"));
-  })
-  .catch(function (erro) {
-    console.log(cli.red("Falha ao se conectar: ") + erro);
-  });
+    .authenticate()
+    .then(function () {
+        console.log(cli.green("Conectado com sucesso!"));
+    })
+    .catch(function (erro) {
+        console.log(cli.red("Falha ao se conectar: ") + erro);
+    });
