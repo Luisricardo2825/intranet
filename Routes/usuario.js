@@ -19,7 +19,7 @@ router.get("/Anotacoes/nova", Usuario, (req, res) => {
 router.get("/Anotacoes/deletar/:id", Usuario, controllerAge.DestroyOne);
 router.get("/Anotacoes/editar/:id", Usuario, controllerAge.FindOne);
 router.get("/Marketing", Usuario, (req, res) => {
-    Noticias.findAll({ where: { ID: req.user.ID }, order: [["ID", "DESC"]] }).then(function (noticias) {
+    Noticias.findAll().then(function (noticias) {
         res.render("Marketing/Home", { noticias: noticias });
     });
 });
@@ -29,9 +29,7 @@ router.get("/Marketing/Noticia/nova", Usuario, (req, res) => {
 router.get("/Marketing/Noticia/editar", Usuario, (req, res) => {
     Agenda.findAll({ where: { usuario: req.user.ID }, order: [["ID", "DESC"]] }).then(function (agenda) {});
 });
-router.get("/Marketing/Noticia/:titulo", (req, res) => {
-    res.render("Marketing/Noticia");
-});
+router.get("/Marketing/Noticia/:id", controllerNot.FindOne);
 
 //Post's
 router.post("/Anotacoes/nova", Usuario, controllerAge.Create);

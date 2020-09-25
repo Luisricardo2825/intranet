@@ -46,8 +46,8 @@ exports.FindOne = (req, res) => {
     const id = req.params.id;
 
     Noticias.findByPk(id)
-        .then((data) => {
-            // res.render("usuario/editar_anotacao",{data:data})
+        .then((noticias) => {
+            res.render("Marketing/Noticia", { noticias: noticias });
         })
         .catch((err) => {
             req.flash("error_msg", "Este usuário não existe " + err);

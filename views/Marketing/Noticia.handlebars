@@ -1,3 +1,11 @@
-<div class="conteiner bg-warning">
-    Teste
+<h1>{{{noticias.dataValues.titulo}}}</h1>
+<div class="container">
+    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;"
+        id="conteudo{{noticias.dataValues.ID}}">
+    </p>
+    <script>
+        var text = `{{{noticias.dataValues.conteudo}}}`
+        document.getElementById('conteudo{{noticias.dataValues.ID}}').innerHTML =
+            marked(text);
+    </script>
 </div>

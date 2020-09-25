@@ -45,13 +45,10 @@
                     id="content{{dataValues.ID}}">
                 </div>
 
-                <input type="hidden" id="dados{{dataValues.ID}}" value="{{dataValues.conteudo}}">
-                <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
                 <script>
-                    var text = document.getElementById("dados{{dataValues.ID}}").value
+                    var text = `{{{dataValues.conteudo}}}`
                     document.getElementById('content{{dataValues.ID}}').innerHTML =
                         marked(text);
-                    text = document.getElementById("dados").value = ""
                 </script>
                 <br>
                 <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">
@@ -113,13 +110,10 @@
                         id="content{{dataValues.ID}}">
                     </div>
 
-                    <input type="hidden" id="dados{{dataValues.ID}}" value="{{dataValues.conteudo}}">
-                    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
                     <script>
-                        var text = document.getElementById("dados{{dataValues.ID}}").value
+                        var text = `{{{dataValues.conteudo}}}`
                         document.getElementById('content{{dataValues.ID}}').innerHTML =
                             marked(text);
-                        text = document.getElementById("dados").value = ""
                     </script>
                     <br>
                     <a href="/Usuario/Anotacoes/deletar/{{dataValues.ID}}">

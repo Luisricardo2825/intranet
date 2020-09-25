@@ -13,7 +13,10 @@ const hbs = handlebars.create({
                 return false;
             }
         },
-        TakeHalf: (runtime) => {},
+        TakeHalf: (runtime) => {
+            var part = runtime.toString().substring(0, 100);
+            return `${part}...`;
+        },
     },
 });
 
