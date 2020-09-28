@@ -14,7 +14,14 @@ const hbs = handlebars.create({
             }
         },
         TakeHalf: (runtime) => {
-            var part = runtime.toString().substring(0, 100);
+            var part = runtime.toString().substring(0, 30);
+            return `${part}...`;
+        },
+        Active: (runtime) => {
+            return active;
+        },
+        TakePara: (runtime) => {
+            var part = runtime.toString().substring(0, 300);
             return `${part}...`;
         },
     },

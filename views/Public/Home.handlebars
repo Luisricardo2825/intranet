@@ -1,92 +1,63 @@
-<div class="container col-12 bg-black">
+<div class="container col-12 mt-5 bg-black">
     <div id="carouselExampleCaptions" class="carousel slide bg-black" data-ride="carousel">
+
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+            {{#each noticias}}
+            {{#if (isOne dataValues.Destaque)}}
+            {{#if @first}}
+            <li data-target="#carouselExampleCaptions" data-slide-to="{{dataValues.ID}}" class="active"></li>
+            {{else}}
+            <li data-target="#carouselExampleCaptions" data-slide-to="{{dataValues.ID}}"></li>
+            {{/if}}
+            {{/if}}
+            {{/each}}
         </ol>
         <div class="carousel-inner">
+            {{#each noticias}}
+            {{#if (isOne dataValues.Destaque)}}
+            {{#if @first}}
             <div class="carousel-item active">
-
-                <div class="container bg-black">
-
-                    <!--Adicione aqui o conteudo do carousel-->
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                <div class="container bg-black mb-5">
+                    <div class="card-body">
+                        <div class="container col-3">
+                            <img src="/IMG/logo-Nav.png" class="rounded" alt="...">
+                        </div>
+                    </div>
                 </div>
-
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="carousel-caption mt-5">
+                    <h5>{{dataValues.titulo}}</h5>
+                    <p>{{#TakePara dataValues.conteudo}}{{/TakePara}}</p>
                 </div>
             </div>
-
+            {{/if}}
+            {{#unless @first}}
             <div class="carousel-item">
-
-                <div class="container bg-black">
-
-                    <!--Adicione aqui o conteudo do carousel-->
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                <div class="container bg-black mb-5">
+                    <div class="card-body">
+                        <div class="container col-3">
+                            <img src="/IMG/logo-Nav.png" class="rounded" alt="...">
+                        </div>
+                    </div>
                 </div>
-
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="carousel-caption mt-5">
+                    <h5>{{dataValues.titulo}}</h5>
+                    <p>{{#TakePara dataValues.conteudo}}{{/TakePara}}</p>
                 </div>
             </div>
+            {{/unless}}
+            {{/if}}
+            {{/each}}
 
-            <div class="carousel-item">
-
-                <div class="container bg-black">
-
-                    <!--Adicione aqui o conteudo do carousel-->
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </div>
-            </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -143,21 +114,18 @@
             {{/each}}
         </div>
 
+        <!--****************************************************************************************************************-->
+        <!--****************************************************************************************************************-->
+        <!--****************************************************************************************************************-->
         <!--Noticias não destacadas-->
         <div class="container col-2">
             {{#each noticias}}
             <div class="card-body mt-1 bg-primary text-white">
                 <!--Conteudo-->
-                <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;"
-                    id="conteudo{{dataValues.ID}}">
+                <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">
+                <h4>{{#TakeHalf dataValues.titulo}}{{/TakeHalf}}</h4>
                 </p>
                 <br>
-                <script>
-                    var text = `{{#TakeHalf dataValues.conteudo}}{{/TakeHalf}}`
-                    document.getElementById('conteudo{{dataValues.ID}}').innerHTML =
-                        marked(text);
-                    text = ""
-                </script>
                 <a href="/Usuario/Marketing/Noticia/{{dataValues.ID}}">
                     <button class="btn btn-dark btn-sm">Mais detalhes</button></a>
             </div>
