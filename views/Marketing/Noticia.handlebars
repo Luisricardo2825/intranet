@@ -19,9 +19,15 @@
         {{{noticias.dataValues.titulo}}}
     </h1>
     <div class="card-body">
-        <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: larger;">
-            {{{noticias.dataValues.conteudo}}}
+        <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;"
+            id="content{{dataValues.ID}}">
         </p>
+        <script>
+            var text = `{{{noticias.dataValues.conteudo}}}`
+            document.getElementById('content{{dataValues.ID}}').innerHTML =
+                marked(text);
+            text = ""
+        </script>
     </div>
 
 </div>

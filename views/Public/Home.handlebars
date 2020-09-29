@@ -3,7 +3,7 @@
 
         <ol class="carousel-indicators">
             {{#each noticias}}
-            {{#if (isOne dataValues.Destaque)}}
+            {{#if (is1 dataValues.Destaque)}}
             {{#if @first}}
             <li data-target="#carouselExampleCaptions" data-slide-to="{{dataValues.ID}}" class="active"></li>
             {{else}}
@@ -14,9 +14,10 @@
         </ol>
         <div class="carousel-inner">
             {{#each noticias}}
-            {{#if (isOne dataValues.Destaque)}}
+            {{#if (is1 dataValues.Destaque)}}
             {{#if @first}}
             <div class="carousel-item active">
+
                 <div class="container bg-black mb-5">
                     <div class="card-body">
                         <div class="container col-3">
@@ -29,10 +30,12 @@
                 <br>
                 <br>
                 <br>
-                <div class="carousel-caption mt-5">
-                    <h5>{{dataValues.titulo}}</h5>
-                    <p>{{#TakePara dataValues.conteudo}}{{/TakePara}}</p>
-                </div>
+                <a href="/Usuario/Marketing/Noticia/{{dataValues.ID}}">
+                    <div class="carousel-caption mt-5">
+                        <h5>{{dataValues.titulo}}</h5>
+                        <p>{{#TakePara dataValues.conteudo}}{{/TakePara}}</p>
+                    </div>
+                </a>
             </div>
             {{/if}}
             {{#unless @first}}
@@ -49,10 +52,12 @@
                 <br>
                 <br>
                 <br>
-                <div class="carousel-caption mt-5">
-                    <h5>{{dataValues.titulo}}</h5>
-                    <p>{{#TakePara dataValues.conteudo}}{{/TakePara}}</p>
-                </div>
+                <a href="/Usuario/Marketing/Noticia/{{dataValues.ID}}">
+                    <div class="carousel-caption mt-5">
+                        <h5>{{dataValues.titulo}}</h5>
+                        <p>{{#TakePara dataValues.conteudo}}{{/TakePara}}</p>
+                    </div>
+                </a>
             </div>
             {{/unless}}
             {{/if}}
@@ -79,7 +84,7 @@
         <div class="col-9 card text-dark ">
             {{#each noticias}}
 
-            {{#if (isOne dataValues.Destaque)}}
+            {{#if (is2 dataValues.Destaque)}}
 
 
             <!--Titulo-->
@@ -120,15 +125,17 @@
         <!--Noticias não destacadas-->
         <div class="container col-2">
             {{#each noticias}}
-            <div class="card-body mt-1 bg-primary text-white">
+            {{#if (is3 dataValues.Destaque)}}
+            <div class="card-body mt-1 bg-black text-white">
                 <!--Conteudo-->
                 <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">
                 <h4>{{#TakeHalf dataValues.titulo}}{{/TakeHalf}}</h4>
                 </p>
                 <br>
                 <a href="/Usuario/Marketing/Noticia/{{dataValues.ID}}">
-                    <button class="btn btn-dark btn-sm">Mais detalhes</button></a>
+                    <button class="btn btn-light text-black btn-sm"><b>Mais detalhes</b></button></a>
             </div>
+            {{/if}}
             {{/each}}
         </div>
 

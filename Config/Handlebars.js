@@ -1,29 +1,17 @@
 const path = require("path");
 const handlebars = require("express-handlebars");
+const Helper = require("./Helpers");
 
 const hbs = handlebars.create({
     defaultLayout: "main",
     layoutsDir: path.join("views/layouts"),
     partialsDir: path.join("views/partials"),
     helpers: {
-        isOne: (runtime) => {
-            if (runtime == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-        TakeHalf: (runtime) => {
-            var part = runtime.toString().substring(0, 30);
-            return `${part}...`;
-        },
-        Active: (runtime) => {
-            return active;
-        },
-        TakePara: (runtime) => {
-            var part = runtime.toString().substring(0, 300);
-            return `${part}...`;
-        },
+        is1: Helper.is1,
+        is2: Helper.is2,
+        is3: Helper.is3,
+        TakeHalf: Helper.TakeHalf,
+        TakePara: Helper.TakePara,
     },
 });
 
