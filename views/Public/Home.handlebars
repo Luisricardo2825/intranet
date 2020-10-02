@@ -77,11 +77,9 @@
 
 <!--Principais-->
 <div class="container col-12 mt-5">
-    <div class="row">
-        <div class="col-1 bg-white ">
+    <div class="row ml-4">
 
-        </div>
-        <div class="col-9 card text-dark ">
+        <div class="col-10">
             {{#each noticias}}
 
             {{#if (is2 dataValues.Destaque)}}
@@ -126,14 +124,16 @@
         <div class="container col-2">
             {{#each noticias}}
             {{#if (is3 dataValues.Destaque)}}
-            <div class="card-body mt-1 bg-black text-white">
-                <!--Conteudo-->
-                <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">
-                <h4>{{#TakeHalf dataValues.titulo}}{{/TakeHalf}}</h4>
-                </p>
-                <br>
-                <a href="/Usuario/Marketing/Noticia/{{dataValues.ID}}">
-                    <button class="btn btn-light text-black btn-sm"><b>Mais detalhes</b></button></a>
+            <div class="card-deck">
+                <div class="card-body mt-1 bg-black text-white">
+                    <!--Conteudo-->
+                    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: medium;">
+                    <h4>{{#TakeHalf dataValues.titulo}}{{/TakeHalf}}</h4>
+                    </p>
+                    <br>
+                    <a href="/Usuario/Marketing/Noticia/{{dataValues.ID}}">
+                        <button class="btn btn-light text-black btn-sm"><b>Mais detalhes</b></button></a>
+                </div>
             </div>
             {{/if}}
             {{/each}}

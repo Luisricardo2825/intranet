@@ -5,6 +5,8 @@ const express = require("express");
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 const app = express();
+const server = require("http").createServer();
+const io = require("socket.io")(server);
 const admin = require("./Routes/admin");
 const usr = require("./Routes/usuario");
 const public = require("./Routes/public");
@@ -131,6 +133,17 @@ app.get("/logout", (req, res) => {
 app.use("/", public); //Rota pública
 app.use("/admin", admin); //Rota de admins
 app.use("/Usuario", usr); //Rota dos usuários
+//Configuração do Socket.IO(Chat)
+
+io.on("connection", (client) => {
+    client.on("event", (data) => {
+        console.log("Connectado");
+    });
+    client.on("disconnect", () => {
+        console.log("desconectado");
+    });
+});
+
 // Outros
 const PORT = 8081;
 app.listen(PORT, function () {
