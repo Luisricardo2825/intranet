@@ -52,13 +52,18 @@ exports.DestroyAllFromUser = (req, res) => {
 exports.FindOne = (req, res) => {
     const id = req.params.id;
 
-    Agenda.findByPk(id)
+    Agenda.findOne({ where: { usuario: req.user.ID, ID: id } })
         .then((data) => {
-            res.render("usuario/editar_anotacao", { data: data });
+            if (data != null) {
+                res.render("usuario/editar_anotacao", { data: data });
+            } else {
+                req.flash("error_msg", "Este anotação não existe ");
+                res.redirect("/usuario/home");
+            }
         })
         .catch((err) => {
-            req.flash("error_msg", "Este usuário não existe " + err);
-            res.status(500).redirect("admin/usuarios");
+            req.flash("error_msg", "Esta anotação não existe " + err);
+            res.redirect("/usuario/home");
         });
 };
 

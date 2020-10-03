@@ -13,6 +13,9 @@ router.get("/Home", Usuario, (req, res) => {
         res.render("Usuario/Home", { agenda: agenda, usuario: req.user });
     });
 });
+router.get("/Configuracoes/:id", Usuario, (req, res) => {
+    res.render("usuario/configuracoes");
+});
 router.get("/Anotacoes/nova", Usuario, (req, res) => {
     res.render("Usuario/Add_anotacao");
 });

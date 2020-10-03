@@ -34,6 +34,10 @@ const Noticias = db.sequelize.define(
             type: db.Sequelize.TEXT,
             require: false,
         },
+        dataFinal: {
+            type: db.Sequelize.TEXT,
+            require: false,
+        },
     },
     { timestamps: false }
 );

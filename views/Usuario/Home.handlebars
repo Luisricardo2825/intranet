@@ -94,13 +94,15 @@
                 <!--Titulo-->
                 <div class="card-header bg-dark text-white">
                     <div class="row">
-                        <h2 class="col-11 text-left">{{dataValues.titulo}}</h2>
+                        <h2 class="col-10 text-left">{{dataValues.titulo}}</h2>
                         <div class="text-right">
                             <a class="btn btn-outline-primary btn-sm text-right" data-toggle="collapse"
                                 href="#anotacao_{{dataValues.ID}}" role="button" aria-expanded="false"
                                 aria-controls="anotacao_{{dataValues.ID}}">
                                 Expandir
                             </a>
+                            <a href="/Usuario/Anotacoes/editar/{{dataValues.ID}}_fin">
+                                <button class="btn btn-outline-success btn-sm">Encerrar</button></a>
                         </div>
                     </div>
                 </div>
