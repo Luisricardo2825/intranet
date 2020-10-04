@@ -29,15 +29,14 @@ router.get("/Marketing", Usuario, (req, res) => {
 router.get("/Marketing/Noticia/nova", Usuario, (req, res) => {
     res.render("Marketing/Add_noticia");
 });
-router.get("/Marketing/Noticia/editar", Usuario, (req, res) => {
-    Agenda.findAll({ where: { usuario: req.user.ID }, order: [["ID", "DESC"]] }).then(function (agenda) {});
-});
-router.get("/Marketing/Noticia/:id", controllerNot.FindOne);
+router.get("/Marketing/Noticia/editar/:id", Usuario, controllerNot.FindOne);
+router.get("/Marketing/Noticia/deletar/:id", Usuario, controllerNot.DestroyOne);
+router.get("/Marketing/Noticia/:id", controllerNot.MaisDetalhes);
 
 //Post's
 router.post("/Anotacoes/nova", Usuario, controllerAge.Create);
 router.post("/Anotacoes/editar/:id", Usuario, controllerAge.Update);
 router.post("/Marketing/Noticia/nova", Usuario, controllerNot.Create);
-router.post("/Marketing/Noticia/editar", Usuario, controllerNot.Update);
+router.post("/Marketing/Noticia/editar/:id", Usuario, controllerNot.Update);
 
 module.exports = router;

@@ -11,24 +11,24 @@ exports.Create = (req, res) => {
         dataAtualizacao: Data,
     })
         .then(() => {
-            req.flash("success_msg", "Noticia adicionada com sucesso!");
-            return res.redirect("/Usuario/Home");
+            req.flash("success_msg", "Notícia adicionada com sucesso!");
+            return res.redirect("/Usuario/Marketing");
         })
         .catch((erro) => {
-            req.flash("error_msg", "Erro ao adicionar a noticia: " + erro);
-            return res.redirect("/Usuario/Home");
+            req.flash("error_msg", "Erro ao adicionar a notícia: " + erro);
+            return res.redirect("/Usuario/Marketing");
         });
 };
 
 exports.DestroyOne = (req, res) => {
-    Noticias.destroy({ where: { id: req.params.id } })
+    Noticias.destroy({ where: { ID: req.params.id, usuario: req.user.ID } })
         .then(() => {
-            req.flash("success_msg", "Anotaçao deletada com sucesso!");
-            return res.redirect("/Usuario/Home");
+            req.flash("success_msg", "Notícia deletada com sucesso!");
+            return res.redirect("/Usuario/Marketing");
         })
         .catch((erro) => {
-            req.flash("error_msg", "Erro ao deletar noticia: " + erro);
-            return res.redirect("/Usuario/Home");
+            req.flash("error_msg", "Erro ao deletar notícia: " + req.user.ID + "______" + erro);
+            return res.redirect("/Usuario/Marketing");
         });
 };
 exports.DestroyAllFromUser = (req, res) => {
@@ -37,7 +37,7 @@ exports.DestroyAllFromUser = (req, res) => {
             return res.redirect("/");
         })
         .catch((erro) => {
-            req.flash("error_msg", "Erro ao deletar noticia: " + erro);
+            req.flash("error_msg", "Erro ao deletar notícia: " + erro);
             return res.redirect("/");
         });
 };
@@ -45,13 +45,26 @@ exports.DestroyAllFromUser = (req, res) => {
 exports.FindOne = (req, res) => {
     const id = req.params.id;
 
+    Noticias.findByPk(id, { where: { usuario: req.user.ID } })
+        .then((noticias) => {
+            res.render("Marketing/editar_noticia", { noticias: noticias });
+        })
+        .catch((err) => {
+            req.flash("error_msg", "Esta pagina não existe");
+            res.status(500).redirect("Marketing/home");
+        });
+};
+
+exports.MaisDetalhes = (req, res) => {
+    const id = req.params.id;
+
     Noticias.findByPk(id)
         .then((noticias) => {
             res.render("Marketing/Noticia", { noticias: noticias });
         })
         .catch((err) => {
-            req.flash("error_msg", "Este usuário não existe " + err);
-            res.status(500).redirect("admin/usuarios");
+            req.flash("error_msg", "Esta pagina não existe");
+            res.status(500).redirect("public/home");
         });
 };
 
@@ -62,17 +75,18 @@ exports.Update = (req, res) => {
         {
             titulo: req.body.titulo,
             conteudo: req.body.conteudo,
-            Destaque: req.body.Dest.Noticia,
+            Destaque: req.body.Destaque,
             dataAtualizacao: Data,
         },
         {
             where: { id: id },
+            usuario: req.user.ID,
         }
     )
         .then((num) => {
             if (num == 1) {
-                req.flash("success_msg", "Noticia editada com sucesso!");
-                return res.redirect("/Usuario/home");
+                req.flash("success_msg", "Notícia editada com sucesso!");
+                return res.redirect("/Usuario/Marketing");
             } else {
                 if (!id || typeof id == undefined || id == null || id == "") {
                     id = null;
