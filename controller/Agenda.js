@@ -3,7 +3,6 @@ const db = require("../models/db");
 const Op = db.Sequelize.Op;
 var Data = require("../Config/Date");
 
-
 exports.Create = (req, res) => {
     var dateFin;
 
@@ -55,15 +54,15 @@ exports.DestroyAllFromUser = (req, res) => {
 exports.FindOne = (req, res) => {
     const id = req.params.id;
 
-   const data = Agenda.findOne({ where: { usuario: req.user.ID, ID: id } })
+    const data = Agenda.findOne({ where: { usuario: req.user.ID, ID: id } })
         .then((data) => {
-                return data
+            return data;
         })
         .catch((err) => {
             req.flash("error_msg", "Esta anotação não existe " + err);
             res.redirect("/usuario/home");
         });
-    return data
+    return data;
 };
 
 exports.Update = (req, res) => {
@@ -107,7 +106,7 @@ exports.Update = (req, res) => {
         });
 };
 
-exports.AutoUpdate = (req,res) => {
+exports.AutoUpdate = (req, res) => {
     Agenda.findAll({
         where: {
             usuario: req.user.ID,
@@ -149,30 +148,38 @@ exports.AutoUpdate = (req,res) => {
             }
         }
     });
-}
-exports.FindAndCountAll =(Id) => {
-   const data = Agenda.findAndCountAll({
+};
+exports.FindAndCountAll = (req, res) => {
+    const id = req.user.ID;
+    const data = Agenda.findAndCountAll({
         where: {
-            usuario: Id,
+            usuario: id,
             dataFin: {
                 [Op.lte]: Data,
             },
             FinalizadoPor: null,
         },
-   }).then(data => { return data }).catch(err => { console.log(err) })
-return data
-}
+    })
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    return data;
+};
 
-exports.FindAll = (req,res) => {
+exports.FindAll = (req, res) => {
     const data = Agenda.findAll({
         where: { usuario: req.user.ID },
-        order: [["dataFin", "ASC"]]
-    }).
-    then((data) => {
-        return data;
-    }).catch((err) => {
-        req.flash("error_msg", "Erro a carregar anotações " + err);
-        res.redirect("/")
+        order: [["dataFin", "ASC"]],
     })
-    return data
-}
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => {
+            req.flash("error_msg", "Erro a carregar anotações " + err);
+            res.redirect("/");
+        });
+    return data;
+};

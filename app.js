@@ -46,13 +46,12 @@ app.use((req, res, next) => {
     res.locals.user = req.user || null;
     //Verifica se tem usuário logado
     if (req.user != null) {
-        const ID = req.user.ID
-        let total = controlerAge.FindAndCountAll(ID).then((result) => {
-            res.locals.notificacoes = (result.count)
-        })
+        const ID = req.user.ID;
+        const total = controlerAge.FindAndCountAll(req, res).then((result) => {
+            res.locals.notificacoes = result.count;
+        });
 
-
-        controlerAge.AutoUpdate(req,res)
+        controlerAge.AutoUpdate(req, res);
     }
     next();
 });

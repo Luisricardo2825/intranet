@@ -42,30 +42,23 @@ exports.DestroyAllFromUser = (req, res) => {
         });
 };
 
-exports.FindOne = (req, res) => {
-    const id = req.params.id;
+exports.FindOne = (req, res, edit) => {
+    var type;
 
-    Noticias.findByPk(id, { where: { usuario: req.user.ID } })
-        .then((noticias) => {
-            res.render("Marketing/editar_noticia", { noticias: noticias });
+    if (edit == true) {
+        type = { where: { usuario: req.user.ID } };
+    } else {
+        type;
+    }
+    const data = Noticias.findByPk(req.params.id, type)
+        .then((data) => {
+            return data;
         })
         .catch((err) => {
             req.flash("error_msg", "Esta pagina não existe");
             res.status(500).redirect("Marketing/home");
         });
-};
-
-exports.MaisDetalhes = (req, res) => {
-    const id = req.params.id;
-
-    Noticias.findByPk(id)
-        .then((noticias) => {
-            res.render("Marketing/Noticia", { noticias: noticias });
-        })
-        .catch((err) => {
-            req.flash("error_msg", "Esta pagina não existe");
-            res.status(500).redirect("public/home");
-        });
+    return data;
 };
 
 exports.Update = (req, res) => {

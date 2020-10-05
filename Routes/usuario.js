@@ -8,9 +8,9 @@ var Data = require("../Config/Date");
 
 //Get's
 router.get("/Home", Usuario, (req, res) => {
- controllerAge.FindAll(req,res).then((result)=>{
+    controllerAge.FindAll(req, res).then((result) => {
         res.render("Usuario/Home", { agenda: result, usuario: req.user });
-    })
+    });
 });
 
 router.get("/Configuracoes/:id", Usuario, (req, res) => {
@@ -26,7 +26,7 @@ router.get("/Anotacoes/deletar/:id", Usuario, controllerAge.DestroyOne);
 router.get("/Anotacoes/editar/:id", Usuario, (req, res) => {
     controllerAge.FindOne(req, res).then((result) => {
         res.render("usuario/editar_anotacao", { data: result });
-    })
+    });
 });
 
 router.get("/Marketing", Usuario, (req, res) => {
@@ -39,11 +39,19 @@ router.get("/Marketing/Noticia/nova", Usuario, (req, res) => {
     res.render("Marketing/Add_noticia");
 });
 
-router.get("/Marketing/Noticia/editar/:id", Usuario, controllerNot.FindOne);
+router.get("/Marketing/Noticia/editar/:id", Usuario, (req, res) => {
+    controllerNot.FindOne(req, res, true).then((result) => {
+        res.render("Marketing/editar_noticia", { noticias: result });
+    });
+});
 
 router.get("/Marketing/Noticia/deletar/:id", Usuario, controllerNot.DestroyOne);
 
-router.get("/Marketing/Noticia/:id", controllerNot.MaisDetalhes);
+router.get("/Marketing/Noticia/:id", (req, res) => {
+    controllerNot.FindOne(req, res).then((result) => {
+        res.render("Marketing/Noticia", { noticias: result });
+    });
+});
 
 //Post's
 router.post("/Anotacoes/nova", Usuario, controllerAge.Create);

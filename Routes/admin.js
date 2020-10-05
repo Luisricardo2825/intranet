@@ -12,17 +12,16 @@ router.get("/", admin, (req, res) => {
 });
 
 router.get("/usuarios", admin, Usuario, (req, res) => {
-    Usuarios.findAll({ order: [["dataCriacao", "ASC"]] }).then(function (usuarios) {
-        res.render("admin/usuarios", { usuarios: usuarios });
+    controllerUsu.FindAll(req, res).then((result) => {
+        res.render("admin/usuarios", { usuarios: result });
     });
 });
 router.get("/usuarios/deletar/:id", admin, Usuario, controllerUsu.DestroyOne);
 
-router.get("/usuarios/editar/:id", admin, Usuario, controllerUsu.FindOne);
-
-router.post("/usuarios/editar/save/", admin, Usuario, (req, res) => {
-    req.flash("error_msg", "Usuario não existe");
-    res.redirect("/admin/usuarios");
+router.get("/usuarios/editar/:id", admin, Usuario, (req, res) => {
+    controllerUsu.FindOne(req, res).then((result) => {
+        res.render("admin/editar", { data: result });
+    });
 });
 
 // Post's

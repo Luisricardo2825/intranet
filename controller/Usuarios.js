@@ -165,14 +165,22 @@ exports.Update = (req, res) => {
 exports.FindOne = (req, res) => {
     const id = req.params.id;
 
-    Usuario.findByPk(id)
+    const data = Usuario.findByPk(id)
         .then((data) => {
-            res.render("admin/editar", { data: data });
+            return data;
         })
         .catch((err) => {
             req.flash("error_msg", "Este usuário não existe " + err);
             res.status(500).redirect("admin/usuarios");
         });
+    return data;
+};
+
+exports.FindAll = (req, res) => {
+    const data = Usuario.findAll({ order: [["dataCriacao", "ASC"]] }).then((data) => {
+        return data;
+    });
+    return data;
 };
 
 exports.DestroyOne = (req, res) => {
