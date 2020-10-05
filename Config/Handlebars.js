@@ -12,6 +12,7 @@ const hbs = handlebars.create({
         is3: Helper.is3,
         TakeHalf: Helper.TakeHalf,
         TakePara: Helper.TakePara,
+        ShortTitle: Helper.ShortTitle,
     },
 });
 

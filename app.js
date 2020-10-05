@@ -15,6 +15,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const Agenda = require("./models/Agenda");
+const controlerAge = require("./controller/Agenda");
 const db = require("./models/db");
 const Noticias = require("./models/Noticias");
 const Data = require("./Config/Date");
@@ -45,63 +46,13 @@ app.use((req, res, next) => {
     res.locals.user = req.user || null;
     //Verifica se tem usuário logado
     if (req.user != null) {
-        var text = Agenda.findAndCountAll({
-            where: {
-                usuario: req.user.ID,
-                dataFin: {
-                    [Op.lte]: Data,
-                },
-                FinalizadoPor: null,
-            },
-        }).then((count) => {
-            // Cria o middleware "notificações" logo após o findAndCountAll
-            if (count.count == "0" || count.count == null) {
-            } else {
-                res.locals.notificacoes = count.count;
-            }
-        });
+        const ID = req.user.ID
+        let total = controlerAge.FindAndCountAll(ID).then((result) => {
+            res.locals.notificacoes = (result.count)
+        })
 
-        Agenda.findAll({
-            where: {
-                usuario: req.user.ID,
-            },
-            raw: true,
-        }).then((dados) => {
-            // Cria o middleware "notificações" logo após o findAndCountAll
-            if (dados == "0" || dados == null) {
-                for (let index = 0; index < dados.length; index++) {
-                    const element = dados[index];
-                    console.log("Erro");
-                }
-            } else {
-                for (let index = 0; index < dados.length; index++) {
-                    const element = dados[index];
-                    Agenda.update(
-                        {
-                            FinalizadoPor: "Fim de prazo",
-                        },
-                        {
-                            where: {
-                                ID: element.ID,
-                                dataFin: { [Op.lte]: Data },
-                            },
-                        }
-                    );
 
-                    Agenda.update(
-                        {
-                            FinalizadoPor: null,
-                        },
-                        {
-                            where: {
-                                ID: element.ID,
-                                dataFin: { [Op.gte]: Data },
-                            },
-                        }
-                    );
-                }
-            }
-        });
+        controlerAge.AutoUpdate(req,res)
     }
     next();
 });

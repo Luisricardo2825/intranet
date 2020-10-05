@@ -12,6 +12,11 @@ exports.TakeHalf = (runtime) => {
     return `${part}...`;
 };
 
+exports.ShortTitle = (runtime) => {
+    var part = runtime.toString().substring(0, 14);
+    return `${part}...`;
+};
+
 exports.TakePara = (runtime) => {
     var part = runtime.toString().substring(0, 300);
     return `${part}...`;

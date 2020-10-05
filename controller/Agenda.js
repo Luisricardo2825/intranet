@@ -1,5 +1,8 @@
 const Agenda = require("../models/Agenda");
+const db = require("../models/db");
+const Op = db.Sequelize.Op;
 var Data = require("../Config/Date");
+
 
 exports.Create = (req, res) => {
     var dateFin;
@@ -52,14 +55,15 @@ exports.DestroyAllFromUser = (req, res) => {
 exports.FindOne = (req, res) => {
     const id = req.params.id;
 
-    Agenda.findByPk(id)
+   const data = Agenda.findOne({ where: { usuario: req.user.ID, ID: id } })
         .then((data) => {
-            res.render("usuario/editar_anotacao", { data: data });
+                return data
         })
         .catch((err) => {
-            req.flash("error_msg", "Este usuário não existe " + err);
-            res.status(500).redirect("admin/usuarios");
+            req.flash("error_msg", "Esta anotação não existe " + err);
+            res.redirect("/usuario/home");
         });
+    return data
 };
 
 exports.Update = (req, res) => {
@@ -102,3 +106,73 @@ exports.Update = (req, res) => {
             });
         });
 };
+
+exports.AutoUpdate = (req,res) => {
+    Agenda.findAll({
+        where: {
+            usuario: req.user.ID,
+        },
+        raw: true,
+    }).then((dados) => {
+        // Cria o middleware "notificações" logo após o findAndCountAll
+        if (dados == "0" || dados == null) {
+            for (let index = 0; index < dados.length; index++) {
+                const element = dados[index];
+                console.log("Erro");
+            }
+        } else {
+            for (let index = 0; index < dados.length; index++) {
+                const element = dados[index];
+                Agenda.update(
+                    {
+                        FinalizadoPor: "Fim de prazo",
+                    },
+                    {
+                        where: {
+                            ID: element.ID,
+                            dataFin: { [Op.lte]: Data },
+                        },
+                    }
+                );
+
+                Agenda.update(
+                    {
+                        FinalizadoPor: null,
+                    },
+                    {
+                        where: {
+                            ID: element.ID,
+                            dataFin: { [Op.gte]: Data },
+                        },
+                    }
+                );
+            }
+        }
+    });
+}
+exports.FindAndCountAll =(Id) => {
+   const data = Agenda.findAndCountAll({
+        where: {
+            usuario: Id,
+            dataFin: {
+                [Op.lte]: Data,
+            },
+            FinalizadoPor: null,
+        },
+   }).then(data => { return data }).catch(err => { console.log(err) })
+return data
+}
+
+exports.FindAll = (req,res) => {
+    const data = Agenda.findAll({
+        where: { usuario: req.user.ID },
+        order: [["dataFin", "ASC"]]
+    }).
+    then((data) => {
+        return data;
+    }).catch((err) => {
+        req.flash("error_msg", "Erro a carregar anotações " + err);
+        res.redirect("/")
+    })
+    return data
+}

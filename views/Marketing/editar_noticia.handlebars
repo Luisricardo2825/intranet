@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="card text-center mt-5">
+        <div class="card-header bg-dark text-white text-left">
+            <H3>Editar notícia</H3>
+        </div>
+        <div class="card-body text-left">
+
+            <form action="/Usuario/Marketing/Noticia/editar/{{noticias.dataValues.ID}}" method="POST">
+                <!--Título-->
+                <label for="nome">Titulo:</label>
+                <input type="text" name="titulo" class="form-control" value="{{noticias.dataValues.titulo}}">
+                <br>
+                <!--Conteudo-->
+                <label for="conteudo">Conteudo:</label>
+                <div class="input-group">
+                    <textarea name="conteudo" class="form-control" aria-label="With textarea"
+                        style="resize: none; height: 200px;">{{noticias.dataValues.conteudo}}</textarea>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Destaque da notícia</label>
+                    <select class="form-control" name="Destaque" id="exampleFormControlSelect1">
+                        {{#if (is1 noticias.dataValues.Destaque)}}
+                        <option value="1">1 - Carousel</option>
+                        <option value="2">2 - Destaque Home</option>
+                        <option value="3">3 - Noticias laterais</option>
+                        {{/if}}
+                        {{#if (is2 noticias.dataValues.Destaque)}}
+                        <option value="2">2 - Destaque Home</option>
+                        <option value="3">3 - Noticias laterais</option>
+                        <option value="1">1 - Carousel</option>
+                        {{/if}}
+                        {{#if (is3 noticias.dataValues.Destaque)}}
+                        <option value="3">3 - Noticias laterais</option>
+                        <option value="1">1 - Carousel</option>
+                        <option value="2">2 - Destaque Home</option>
+                        {{/if}}
+                    </select>
+                </div>
+                <br>
+                <div class="col align-self-end" style="text-align: right;">
+                    <a name="cancelar" id="btnGroupAddon2" class="btn btn-danger" href="/Usuario/Home"
+                        role="button">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
