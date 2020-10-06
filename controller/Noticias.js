@@ -95,3 +95,9 @@ exports.Update = (req, res) => {
             });
         });
 };
+exports.FindAll = (req, res) => {
+    const data = Noticias.findAll({ order: [["Destaque", "ASC"]] }).then((data) => {
+        return data;
+    });
+    return data;
+};

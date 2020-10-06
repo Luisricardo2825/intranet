@@ -30,8 +30,8 @@ router.get("/Anotacoes/editar/:id", Usuario, (req, res) => {
 });
 
 router.get("/Marketing", Usuario, (req, res) => {
-    Noticias.findAll().then(function (noticias) {
-        res.render("Marketing/Home", { noticias: noticias });
+    controllerNot.FindAll(req, res).then((result) => {
+        res.render("Marketing/Home", { noticias: result });
     });
 });
 

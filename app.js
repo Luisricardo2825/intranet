@@ -2,7 +2,6 @@
 
 //Carregando módulos
 const express = require("express");
-const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 const app = express();
 const server = require("http").createServer();
@@ -14,13 +13,9 @@ const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
-const Agenda = require("./models/Agenda");
 const controlerAge = require("./controller/Agenda");
-const db = require("./models/db");
-const Noticias = require("./models/Noticias");
-const Data = require("./Config/Date");
+const controllerNot = require("./controller/Noticias");
 const hbs = require("./Config/Handlebars");
-const Op = db.Sequelize.Op;
 
 require("./Config/auth")(passport);
 
@@ -70,8 +65,8 @@ app.use(express.static("views/images"));
 
 // Rotas
 app.get("/", (req, res) => {
-    Noticias.findAll().then(function (noticias) {
-        res.render("Public/Home", { noticias: noticias });
+    controllerNot.FindAll(req, res).then((result) => {
+        res.render("Public/Home", { noticias: result });
     });
 });
 app.get("/logout", (req, res) => {
