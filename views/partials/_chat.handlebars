@@ -1,0 +1,43 @@
+<div class="fixed-bottom text-left ">
+    <button class="btn bg-tranparent bg-dark btn-sm" data-toggle="collapse" href="#ChatRow" role="button"
+        aria-expanded="false" aria-controls="Chat">
+        <img src="/IMG/Chat.png" class="rounded" alt="..." width="95" height="35">
+    </button>
+    <div class="row collapse col-4 bg-dark" id="ChatRow">
+        <div class="card-body bg-dark text-left text-white col-2 text-wrap" id="SideBar">
+            <img src="/IMG/user.png" class="rounded" alt="..." width="35" height="32">
+            <p class="text-truncate" style="font-size: 11px;">{{user.nome}}</p>
+        </div>
+        <div class="container-fluid col-10 bg-secondary">
+            <div class="card-body bg-dark text-left overflow-auto" id="Chat" style="max-height: 500px;">
+
+                <div class="bg-success rounded text-white col-7 pl-2 pr-2 align-right">
+                    <p>This is an example of using .overflow-auto on an
+                        element with
+                        set width
+                        and
+                        height dimensions. By</p>
+                </div>
+
+                <div class="bg-secondary rounded text-white col-7 pl-2 pr-2 align-right">
+                    <p>This is an example of using .overflow-auto on an
+                        element with
+                        set width
+                        and
+                        height dimensions. By</p>
+                </div>
+
+            </div>
+            <div class="input-group mt-2">
+                <input type="text" class="form-control" placeholder="Recipient's username"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button">Button</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-break" style=" width: 50px;">
+        <p class="text-break"></p>
+    </div>
+</div>
