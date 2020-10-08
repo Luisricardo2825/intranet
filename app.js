@@ -1,10 +1,13 @@
 //Este arquivo é onde começa toda a operação da API(requisições de Rotas,validações,operações e tratamentos)
 
 //Carregando módulos
+const PORT = 8081;
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const server = require("http").createServer();
+const server = app.listen(PORT, function () {
+    console.log("Servidor iniciado na URL: http://localhost:8081");
+});
 const io = require("socket.io")(server);
 const admin = require("./Routes/admin");
 const usr = require("./Routes/usuario");
@@ -80,17 +83,17 @@ app.use("/admin", admin); //Rota de admins
 app.use("/Usuario", usr); //Rota dos usuários
 //Configuração do Socket.IO(Chat)
 
-io.on("connection", (client) => {
-    client.on("event", (data) => {
-        console.log("Connectado");
-    });
-    client.on("disconnect", () => {
-        console.log("desconectado");
+let messages = [];
+io.on("connection", (Socket) => {
+    console.log(`Socket conectado: ${Socket.id}`);
+
+    Socket.emit("previousMessages", messages);
+
+    Socket.on("sendMessage", (data) => {
+        console.log(data);
+        messages.push(data);
+        Socket.broadcast.emit("receivedMessage", data);
     });
 });
 
 // Outros
-const PORT = 8081;
-app.listen(PORT, function () {
-    console.log("Servidor iniciado na URL: http://localhost:8081");
-});

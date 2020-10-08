@@ -54,7 +54,7 @@ const SenCarmehil = "H1h2h3h4";
 const SenRicardo = "ricardo";
 const process = "Etc/GMT0";
 
-const sequelize = new Sequelize("banco", "root", SenCarmehil, {
+const sequelize = new Sequelize("banco", "root", SenRicardo, {
     host: "localhost",
     dialect: "mariadb",
     dialectOptions: {

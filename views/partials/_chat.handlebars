@@ -1,43 +1,106 @@
-<div class="fixed-bottom text-left ">
-    <button class="btn bg-tranparent bg-dark btn-sm" data-toggle="collapse" href="#ChatRow" role="button"
-        aria-expanded="false" aria-controls="Chat">
-        <img src="/IMG/Chat.png" class="rounded" alt="..." width="95" height="35">
-    </button>
-    <div class="row collapse col-4 bg-dark" id="ChatRow">
-        <div class="card-body bg-dark text-left text-white col-2 text-wrap" id="SideBar">
-            <img src="/IMG/user.png" class="rounded" alt="..." width="35" height="32">
-            <p class="text-truncate" style="font-size: 11px;">{{user.nome}}</p>
-        </div>
-        <div class="container-fluid col-10 bg-secondary">
-            <div class="card-body bg-dark text-left overflow-auto" id="Chat" style="max-height: 500px;">
-
-                <div class="bg-success rounded text-white col-7 pl-2 pr-2 align-right">
-                    <p>This is an example of using .overflow-auto on an
-                        element with
-                        set width
-                        and
-                        height dimensions. By</p>
-                </div>
-
-                <div class="bg-secondary rounded text-white col-7 pl-2 pr-2 align-right">
-                    <p>This is an example of using .overflow-auto on an
-                        element with
-                        set width
-                        and
-                        height dimensions. By</p>
-                </div>
-
+<div class="fixed-bottom text-left float-right float-left col-3">
+    <div class="bg-tranparent bg-dark" data-toggle="collapse" href="#ChatRow" aria-expanded="false" role="button"
+        aria-controls="ChatRow" id="BotaoChat">
+        <div class="row">
+            <div class="col-10">
+                <img src="/IMG/Chat.png" class="" alt="..." width="95" height="35">
             </div>
-            <div class="input-group mt-2">
-                <input type="text" class="form-control" placeholder="Recipient's username"
-                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-success" type="button">Button</button>
-                </div>
+            <div class="col-2"><img src="/IMG/user.png" class="rounded" alt="..." width="35" height="32">
             </div>
+
         </div>
     </div>
-    <div class="text-break" style=" width: 50px;">
-        <p class="text-break"></p>
+
+    <div class="collapse" id="ChatRow">
+        <div class="row fluid float-right pt-0 pl-3">
+            <!--Lado dos usuários-->
+            <div class="card-body bg-dark text-left text-white col-3 text-wrap" id="SideBar">
+                <img src="/IMG/user.png" class="rounded" alt="..." width="35" height="32">
+                <p class="text-truncate" style="font-size: 11px;">{{user.nome}}</p>
+            </div>
+
+
+            <!--Lado das mensagens-->
+            <div class="container-fluid col-9 pl-1">
+                <div class="card-body bg-white text-left overflow-auto"
+                    style="max-height: 500px; border: 1px; border-color: black;" id="mensagens">
+
+                </div>
+
+                <!--Input dos dados do chat é aqui-->
+                <form id="Chat">
+                    <div class="input-group pr-0">
+                        <input type="text" class="form-control" placeholder="Digite uma mensagem"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2" name="message">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">Button</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    var socket = io();
+    var User = "{{user.ID}}"
+
+    socket.on("previousMessages", function (messages) {
+        for (message of messages) {
+            renderMessage(message)
+        }
+    })
+    //Renderiza mensagens recebidas
+    socket.on("receivedMessage", (data) => {
+        if (data.autorID != User) {
+            renderMessage(data)
+        }
+    })
+
+    $("#Chat").submit(function (event) {
+        event.preventDefault();
+
+        var autor = "{{user.nome}}"
+        var message = $("input[name=message]").val()
+
+        //Cria um objeto que irá transferir os dados
+        var messageObject = {
+            autor: autor,
+            autorID: "{{user.ID}}",
+            message: message,
+        }
+
+        //Envia a mensagem para realizar o broadcast
+        socket.emit('sendMessage', messageObject)
+
+        //Renderiza a mensagem enviada para o usuário que a enviou
+        renderMessage(messageObject)
+
+        event.target.elements.message.value = "";
+        event.target.elements.message.focus();
+
+    });
+
+    //Função que renderiza as mensagens
+    function renderMessage(message) {
+        var msgSize = (message.message).length
+        var bubleSize = 30;
+        for (var n = 0; n < msgSize; n++) {
+            if (msgSize > 1) {
+                bubleSize += 5;
+            }
+        }
+        if (message.autorID == User) {
+            $('#mensagens').append(`<div class="bg-success rounded text-white pl-2 pr-2 align-right text-wrap" style="width:${bubleSize}px; max-width:200px">
+                        <p class='text-break'>${message.message}</p>
+                    </div>`)
+        }
+        else {
+            $('#mensagens').append(`<div class="bg-secondary rounded text-white pl-2 pr-2 align-right text-wrap" style="width:${bubleSize}px; max-width:200px">
+                        <p class='text-break'>${message.message}</p>
+                    </div>`)
+        }
+    }
+</script>
